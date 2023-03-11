@@ -25,6 +25,7 @@ int main()
     inicio = removerMeio(inicio, 2);
     inicio = removerMeio(inicio, 3);
     listarMeios(inicio);
+    freeMem(inicio);
 
     return (0);
 }

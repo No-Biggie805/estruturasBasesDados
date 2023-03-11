@@ -14,8 +14,8 @@ R: em principio serão todos linked lists
 
 int main()
 {
-    AdminUser_t *head;
-    AdminUser_t *newUser;
+    AdminUser_t *head = NULL;
+    AdminUser_t *newUser = NULL;
     char name[15], password[15];
     int opcao; //, tipo_user;
 
@@ -54,7 +54,7 @@ voltamenu: // looping of the switch case funtion, no while requiered
     {
         system("clear");
         printf("\n");
-        // FreeMem(&head); // funcção liberar apontadores à memoria
+        FreeMem(&head); // funcção liberar apontadores à memoria
         printf("-->saiu do programa\n");
         return 0;
         break;

@@ -18,5 +18,5 @@ AdminUser_t *EnterUser(char name[], char password[]);
 
 // void ConfirmLogIN(AdminUser_t *head, char name[], char password[]);
 void printList(AdminUser_t *head);
-// void FreeMem(AdminUser_t **head);
+void FreeMem(AdminUser_t **head);
 // void deleteNode(AdminUser_t **head, int pos);

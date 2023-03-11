@@ -26,3 +26,5 @@ int existeMeio(Meio *inicio, int codigo);
 
 // Remover um meio a partir do seu código
 Meio *removerMeio(Meio *inicio, int cod);
+
+void freeMem(Meio *inicio);

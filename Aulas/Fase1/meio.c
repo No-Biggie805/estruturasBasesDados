@@ -10,26 +10,26 @@ Meio *inserirMeio(Meio *inicio, int cod, char tipo[], float bat, float aut)
   if (!existeMeio(inicio, cod))
   {
     // Meio *novo = malloc(sizeof(struct registo));
-    Meio *novo = (Meio*)malloc(sizeof(Meio)); //maneira preferivel aqui!!
+    Meio *novo = (Meio *)malloc(sizeof(Meio)); // maneira preferivel aqui!!
 
-    if (novo != NULL)//enquanto o nó não for nulo
+    if (novo != NULL) // enquanto o nó não for nulo
     {
-      novo->codigo = cod;//atualizar no nó o dado "codigo"
-      strcpy(novo->tipo, tipo);//atualizar no nó o dado "tipo"
-      novo->bateria = bat;//atualizar no nó o dado "bateria"
-      novo->autonomia = aut;//atualizar no nó o dado "autonomia"
-      novo->seguinte = inicio;//atualizar o seguinte para poder indexar a novo head
+      novo->codigo = cod;       // atualizar no nó o dado "codigo"
+      strcpy(novo->tipo, tipo); // atualizar no nó o dado "tipo"
+      novo->bateria = bat;      // atualizar no nó o dado "bateria"
+      novo->autonomia = aut;    // atualizar no nó o dado "autonomia"
+      novo->seguinte = inicio;  // atualizar o seguinte para poder indexar a novo head
       return (novo);
     }
   }
-  else//senão
-    return (inicio);//cria inicio novo de lista
+  else               // senão
+    return (inicio); // cria inicio novo de lista
 }
 
 // listar na consola o conteúdo da lista ligada
 void listarMeios(Meio *inicio)
 {
-  while (inicio != NULL)//enquanto lista n
+  while (inicio != NULL) // enquanto lista n
   {
     printf("%d %s %.2f %.2f\n", inicio->codigo, inicio->tipo,
            inicio->bateria, inicio->autonomia);
@@ -41,15 +41,15 @@ void listarMeios(Meio *inicio)
 // devolve 1 se existir ou 0 caso contrário
 int existeMeio(Meio *inicio, int cod)
 {
-  while (inicio != NULL)//enquanto a lista não atingir ao fim
+  while (inicio != NULL) // enquanto a lista não atingir ao fim
   {
     if (inicio->codigo == cod)
-      return (1);//return 1 quererá dizer verdadeiro
-    inicio = inicio->seguinte;//senão continuará a ver até ao fim da lista
-                              //o procedimento, por trás, atualiza o seguinte da struct(ou linked list)
-  }//chegou a NULL, terminou a lista
+      return (1);              // return 1 quererá dizer verdadeiro
+    inicio = inicio->seguinte; // senão continuará a ver até ao fim da lista
+                               // o procedimento, por trás, atualiza o seguinte da struct(ou linked list)
+  } // chegou a NULL, terminou a lista
 
-  return (0);//função retorna 0 se e só se o bloco vir que deu falso
+  return (0); // função retorna 0 se e só se o bloco vir que deu falso
 }
 
 /*
@@ -96,4 +96,18 @@ Meio *removerMeio(Meio *inicio, int cod)
       return (inicio);
     }
   }
+}
+
+void freeMem(Meio *inicio)
+{
+   printf("\nFunção Liberar, a executar..");
+    Meio *newNode = inicio;
+    Meio *temp;
+    while (newNode != NULL)
+    {
+        // temp = newNode;
+        temp = newNode->seguinte;
+        newNode = temp;
+        free(newNode);
+    }
 }
