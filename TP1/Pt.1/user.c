@@ -21,13 +21,13 @@ AdminUser_t *EnterUser(char name[], char password[])
 
     // if (tipo_user == 1) // 1->inserir gestor
     // {
-    while (NewPtr != NULL)
-    {
+    // while (NewPtr != NULL)
+    // {
 
         strcpy(NewPtr->name, name); // alloc the data dinamically here..
         strcpy(NewPtr->password, password);
         NewPtr->next = NULL; // consider next as the last of the list
-    }
+    // }
 
     // if (head == NULL) // list is still empty
     // {
