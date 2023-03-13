@@ -17,7 +17,7 @@ voltamenu:
         system("clear");
         printf("enter a number to your list");
         scanf("%d", &valor);
-        newNode = createNewNode(valor); // Enters new user
+        newNode = createNewNode(head, valor); // Enters new user
         newNode->next = head;
         head = newNode;
         printf("\n");
