@@ -26,11 +26,18 @@ AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[])
         *head = newNode;       // inicio de lista nulo
     }
 
+    // Missing to file implementation.
+
     return newNode;
 
     // colocar função criar nova lista se for vazio??(ver codigo do trabalho do 1ºano, no replit)
 }
-/*
+
+/// @brief
+/// @param head
+/// @param name
+/// @param password
+
 void ConfirmLogIN(AdminUser_t *head, char name[], char password[])
 {
     // dinamic allocation:experimental
@@ -42,7 +49,8 @@ void ConfirmLogIN(AdminUser_t *head, char name[], char password[])
     {
         if (strcmp(temp->password, password) == 0) // checking our respectfull password
         {
-            printf("\nWelcome dear User:%s,%s", name, temp->name);
+            printf("\nUser verification: 'experimental'\n");
+            printf("\nWelcome dear User:as menber:%s,as local:%s", name, temp->name);
         }
         else
             printf("\nWrong Password");
@@ -50,7 +58,6 @@ void ConfirmLogIN(AdminUser_t *head, char name[], char password[])
     else
         printf("\nWrong UserName");
 }
-*/
 
 void printList(AdminUser_t *head)
 {
@@ -71,6 +78,27 @@ void printList(AdminUser_t *head)
         }
     }
 }
+
+// insert data from linked list to a file
+
+void serialize(AdminUser_t *head) // no need to create as **head since we are not changing
+                                  // data from linked list, and we only need to serialize data to a file
+{
+    FILE *fp = fopen("list.txt", "w");
+    if (fp == NULL)
+    {
+        printf("error opening file");
+        // exit(1);
+        return;
+    }
+    AdminUser_t *temp = head;
+    for (temp = head; temp != NULL; temp = temp->next)
+    {
+        fprintf(fp, "%s", temp->name);
+    }
+    fclose(fp);
+}
+
 void FreeMem(AdminUser_t **head)
 {
     printf("\nFunção Liberar, a executar..");

@@ -35,15 +35,14 @@ int main()
             scanf("%s", name);
             printf("enter your password:");
             scanf("%s", password);
-            // printf("nome:%s", name);
-            // printf("password:%s ", password);
 
             EnterUser(&head, name, password);
             // newUser = EnterUser(name, password); //to enter new user
             // newUser->next = head;
             // head = newUser;
 
-            // ConfirmLogIN(head, name, password); // passing procedure to confirm if user logged in
+            ConfirmLogIN(head, name, password); // passing procedure to confirm if user logged in
+            serialize(head);                    // call for serialize funtion
             printf("\n");
             break;
         }
@@ -72,5 +71,4 @@ int main()
     }
 
     return 0;
-    // free(s1);
 }

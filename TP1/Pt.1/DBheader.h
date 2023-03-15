@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 // #include <stdbool.h>
 
 typedef struct AdminUser // lista de usuário a manter o programa, irá talvez ser melhorado
@@ -16,7 +17,8 @@ typedef struct AdminUser // lista de usuário a manter o programa, irá talvez s
 
 AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[]);
 
-// void ConfirmLogIN(AdminUser_t *head, char name[], char password[]);
 void printList(AdminUser_t *head);
+void ConfirmLogIN(AdminUser_t *head, char name[], char password[]);
+void serialize(AdminUser_t *head);//write name data to file
 void FreeMem(AdminUser_t **head);
 // void deleteNode(AdminUser_t **head, int pos);
