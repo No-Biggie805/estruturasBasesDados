@@ -28,3 +28,7 @@
 //To prevent files from pushing: 
 
 1.git restore --staged <file> //Unstanging the file.
+
+
+
+----->OBS: need to clone repo to mac pc.
