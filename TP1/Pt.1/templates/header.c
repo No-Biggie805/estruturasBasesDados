@@ -1,29 +1,35 @@
 #include "header.h"
 
-node_t *createNewNode(node_t *head, int data)
+int createNewNode(node_t **head, int data) //
 {
 
-    if (!existHead(head, data))
-    {
-        node_t *newNode = (node_t *)malloc(sizeof(node_t));
+    node_t *newNode = (node_t *)malloc(sizeof(node_t));
+    int success = newNode != NULL;
 
-        if (newNode != NULL)
-        {
-            newNode->data = data;
-            newNode->next = head;
-            return newNode;
-        }
+    if (success)
+    {
+        newNode->data = data;
+        newNode->next = *head;
+        *head = newNode;
+        return success;
     }
-    return head;
+    else
+        return 0;
 }
 
 void printList(node_t *head)
 {
 
-    while (head != NULL)
+    if (head == NULL)
+        printf("List is empty");
+    else
     {
-        printf("%d-\t", head->data);
-        head = head->next;
+
+        while (head != NULL)
+        {
+            printf("%d-\t", head->data);
+            head = head->next;
+        }
     }
 }
 
@@ -36,21 +42,21 @@ void FreeMem(node_t **head)
     {
         // temp = newNode;
         temp = newNode->next;
-        newNode = temp;
         free(newNode);
-    }
+        newNode = temp;
+        }
 }
 
-int existHead(node_t *head, int data)
-{
-    // node_t *temp = *head;
-    while (head != NULL)
-    {
-        if (head->data == data)
-        {
-            return (1);
-        }
-        head = head->next;
-    }
-    return 0;
-}
+// int existHead(node_t *head, int data)
+// {
+//     // node_t *temp = *head;
+//     while (head != NULL)
+//     {
+//         if (head->data == data)
+//         {
+//             return (1);
+//         }
+//         head = head->next;
+//     }
+//     return 0;
+// }

@@ -15,53 +15,61 @@ R: em principio serão todos linked lists
 int main()
 {
     AdminUser_t *head = NULL;
-    AdminUser_t *newUser = NULL;
+    // AdminUser_t *newUser = NULL;
     char name[15], password[15];
     int opcao; //, tipo_user;
 
-voltamenu: // looping of the switch case funtion, no while requiered
-    // system("clear");
-    printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/10->sair]");
-    scanf("%d", &opcao);
+    while (1)
+    {
 
-    switch (opcao)
-    {
-    case 0:
-    {
-        system("clear");
-        printf("enter your username:");
-        scanf("%s", name);
-        printf("enter your password:");
-        scanf("%s", password);
-        // printf("nome:%s", name);
-        // printf("password:%s ", password);
-        newUser = EnterUser(name, password); // Enters new user
-        newUser->next = head;
-        head = newUser;
+        // system("clear");
+        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/10->sair]");
+        scanf("%d", &opcao);
 
-        // ConfirmLogIN(head, name, password); // passing procedure to confirm if user logged in
-        printf("\n");
-        break;
-    }
-    case 1:
-    {
-        system("clear");
-        printList(head);
-        break;
-    }
+        switch (opcao)
+        {
+        case 0:
+        {
+            system("clear");
+            printf("enter your username:");
+            scanf("%s", name);
+            printf("enter your password:");
+            scanf("%s", password);
+            // printf("nome:%s", name);
+            // printf("password:%s ", password);
 
-    case 10:
-    {
-        system("clear");
-        printf("\n");
-        FreeMem(&head); // funcção liberar apontadores à memoria
-        printf("-->saiu do programa\n");
-        return 0;
-        break;
-        // falta adicionar função liberar(free)
-    } // end of case 1
+            EnterUser(&head, name, password);
+            // newUser = EnterUser(name, password); //to enter new user
+            // newUser->next = head;
+            // head = newUser;
+
+            // ConfirmLogIN(head, name, password); // passing procedure to confirm if user logged in
+            printf("\n");
+            break;
+        }
+        case 1:
+        {
+            system("clear");
+            printList(head);
+            break;
+        }
+
+        case 10:
+        {
+            system("clear");
+            printf("\n");
+            FreeMem(&head); // funcção liberar apontadores à memoria
+            printf("-->saiu do programa\n");
+            return 0;
+            break;
+            // falta adicionar função liberar(free)
+        } // end of case 1
+
+        default:
+            system("clear");
+            printf("Error:Invalid Option");
+        }
     }
-    goto voltamenu;
 
     return 0;
     // free(s1);

@@ -30,10 +30,13 @@ voltamenu:
             scanf("%d", &bateria);
             printf("insira a autonomia do veiculo: ");
             scanf("%f", &autonomia);
-
+    
             newNode = inserirMeio(inicio, i, tipo, bateria, autonomia); // igualar novo nodo a funcao
             newNode->seguinte = inicio;                                 // tornar seguinte como inicio
             inicio = newNode;                                           // tornar inicio da lista como o valor do novo nodo
+            
+            
+            
             /*inicio = inserirMeio(inicio, 1, "bicicleta", 55, 30);
             inicio = inserirMeio(inicio, 2, "bicicleta", 85, 50);
             inicio = inserirMeio(inicio, 3, "trotinete", 85, 50);*/

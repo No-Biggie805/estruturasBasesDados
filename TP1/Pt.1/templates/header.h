@@ -7,10 +7,10 @@ typedef struct node
     struct node *next;
 } node_t;
 
-node_t *createNewNode(node_t *head, int data);
+int createNewNode(node_t **head, int data);
 
 void printList(node_t *head);
 
 void FreeMem(node_t **head);
 
-int existHead(node_t *head, int data);
+// int existHead(node_t *head, int data);

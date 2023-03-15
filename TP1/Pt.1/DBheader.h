@@ -14,7 +14,7 @@ typedef struct AdminUser // lista de usuário a manter o programa, irá talvez s
 // AdminUser_t *head;
 // void generateNewList();
 
-AdminUser_t *EnterUser(char name[], char password[]);
+AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[]);
 
 // void ConfirmLogIN(AdminUser_t *head, char name[], char password[]);
 void printList(AdminUser_t *head);

@@ -5,53 +5,28 @@
 //     head = NULL;
 // }
 
-AdminUser_t *EnterUser(char name[], char password[])
+AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[])
 {
     // setting up dynamic allocation
-    AdminUser_t *NewPtr = (AdminUser_t *)malloc(sizeof(AdminUser_t));
-    // if (NewPtr == NULL)
-    // {
-    //     printf("\nerro na alocação!\n");
-    //     exit(0);
-    // }
+    AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
 
-    // int tipo_user = 0;
-    // printf("Tipo de utilizador[Gestor(1)/Cliente(2)]:");
-    // scanf("%d", &tipo_user);
+    strcpy(newNode->name, name); // alloc the data dinamically here..
+    strcpy(newNode->password, password);
+    newNode->next = NULL; // consider next as the last of the list
 
-    // if (tipo_user == 1) // 1->inserir gestor
-    // {
-    // while (NewPtr != NULL)
-    // {
+    if (&(*head) == NULL) // inicio sendo declarado nulo fica igual ao valor do
+                          // ponteiro no incicio que e nulo
+    {
+        *head = newNode; // ponteiro e anulado para nao limpar a memoria
+    }
+    else // esta caso ira fazer com que a posiçao de proximo(prox) retorne a
+         // 0. Importante para o apontador nao anular os valores guardados
+    {
+        newNode->next = *head; // considerar prox, do atual como nulo
+        *head = newNode;       // inicio de lista nulo
+    }
 
-        strcpy(NewPtr->name, name); // alloc the data dinamically here..
-        strcpy(NewPtr->password, password);
-        NewPtr->next = NULL; // consider next as the last of the list
-    // }
-
-    // if (head == NULL) // list is still empty
-    // {
-    //     head = NewPtr; // allocate data to new empty list
-    // }
-    // else // if head is not null, meaning "the list is not empty"
-    // {
-    //     NewPtr->next = head; // store next data to become current one
-    //     head = NewPtr;       // allocate the data to top of the list
-    // }
-
-    // *head = NewPtr;//save as the head position
-
-    // } // adicionar seguinte a adição do cliente, quando criar nova estrutura..
-
-    // else if (tipo_user != 1)//else clause won't clear the data, needs a redo..
-    // {
-    //     printf("Opção invalida!!");
-
-    //     // delete(NewPtr);//delete all node data
-    //     return (NULL);
-    // }
-
-    return NewPtr;
+    return newNode;
 
     // colocar função criar nova lista se for vazio??(ver codigo do trabalho do 1ºano, no replit)
 }
@@ -77,7 +52,6 @@ void ConfirmLogIN(AdminUser_t *head, char name[], char password[])
 }
 */
 
-
 void printList(AdminUser_t *head)
 {
     AdminUser_t *temporary = head;
@@ -86,13 +60,15 @@ void printList(AdminUser_t *head)
         printf("\nNão Achou!!");
         return;
     }
-
-    while (temporary != NULL) // enquanto não terminar a nossa lista..
+    else
     {
-        printf("printing name: %s", temporary->name); // excrever por nome na consola
-        printf("\n----------x------------\n");
-        temporary = temporary->next; // avança nodo seguinte
-        getchar();
+        while (temporary != NULL) // enquanto não terminar a nossa lista..
+        {
+            printf("printing name: %s", temporary->name); // excrever por nome na consola
+            printf("\n----------x------------\n");
+            // getchar();
+            temporary = temporary->next; // avança nodo seguinte
+        }
     }
 }
 void FreeMem(AdminUser_t **head)
