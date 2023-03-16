@@ -79,6 +79,7 @@ void printList(AdminUser_t *head)
     }
 }
 
+// implementation added thanks to: https://www.youtube.com/watch?v=dAZbGAhWQtw
 // insert data from linked list to a file
 
 void serialize(AdminUser_t *head) // no need to create as **head since we are not changing
@@ -94,9 +95,32 @@ void serialize(AdminUser_t *head) // no need to create as **head since we are no
     AdminUser_t *temp = head;
     for (temp = head; temp != NULL; temp = temp->next)
     {
-        fprintf(fp, "%s", temp->name);
+        fprintf(fp, "%s, %s", temp->name, temp->password);
     }
     fclose(fp);
+}
+
+AdminUser_t *deserialize()
+{
+    FILE *fp = fopen("list.txt", "r");
+    AdminUser_t *temp = NULL;
+    char name[15], password[15];
+
+    if (fp == NULL)
+    {
+        return NULL; // or return if void ??
+    }
+    else if (fp != NULL)
+    {
+        while (!feof(fp))
+        {
+            fscanf(fp, "%[^\n]s,%[^\n]s", name, password);
+            temp = EnterUser(&temp, name, password);
+        }
+        fclose(fp);
+    }
+
+    return temp;
 }
 
 void FreeMem(AdminUser_t **head)
