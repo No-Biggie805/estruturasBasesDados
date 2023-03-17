@@ -21,7 +21,7 @@ void printList(AdminUser_t *head);
 void ConfirmLogIN(AdminUser_t *head, char name[], char password[]);
 void serialize(AdminUser_t *head);//write name data to file
 
-AdminUser_t *deserialize();//Read data from file, in dev.
+AdminUser_t *deserialize(AdminUser_t **head);//Read data from file, in dev.
 
 
 void FreeMem(AdminUser_t **head);
