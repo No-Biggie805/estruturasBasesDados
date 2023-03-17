@@ -55,7 +55,7 @@ int main()
         case 2: // Read files data
         {
             system("clear");
-            deserialize();
+            deserialize(&head);
             break;
         }
 

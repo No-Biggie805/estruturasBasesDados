@@ -95,32 +95,48 @@ void serialize(AdminUser_t *head) // no need to create as **head since we are no
     AdminUser_t *temp = head;
     for (temp = head; temp != NULL; temp = temp->next)
     {
-        fprintf(fp, "%s, %s", temp->name, temp->password);
+        fprintf(fp, "%s|%s|", temp->name, temp->password);
     }
     fclose(fp);
 }
 
-AdminUser_t *deserialize()
+AdminUser_t *deserialize(AdminUser_t **head)
 {
     FILE *fp = fopen("list.txt", "r");
-    AdminUser_t *temp = NULL;
+    // AdminUser_t *temp = NULL;
     char name[15], password[15];
-
-    if (fp == NULL)
+    // AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
+    if (fp == NULL) // yes, this works
     {
         return NULL; // or return if void ??
     }
     else if (fp != NULL)
     {
-        while (!feof(fp))
+        while (fscanf(fp, "%[^|]|%[^|]|\n", name, password) != EOF) // scanning while it has not reached the E.O.F.
         {
-            fscanf(fp, "%[^\n]s,%[^\n]s", name, password);
-            temp = EnterUser(&temp, name, password);
+            if (head == NULL)
+            {
+                printf("making empty list are we?");
+            }
+            else
+            {
+                // fscanf(fp, "%[^|]|%[^|]|\n", name, password);
+                // temp = EnterUser(&temp, name, password);
+
+                // submiting to linked list inside of head
+                *head = EnterUser(&(*head), name, password); // experimental, its werks yay
+
+                // strcpy(newNode->name, name);
+                // strcpy(newNode->password, password);
+                // newNode->next = *head;
+                // *head = newNode;}
+            }
         }
         fclose(fp);
     }
 
-    return temp;
+    printf("Data loaded from file sucessfully\n");
+    return *head;
 }
 
 void FreeMem(AdminUser_t **head)
