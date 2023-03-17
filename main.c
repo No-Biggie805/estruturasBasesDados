@@ -23,7 +23,7 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/10->sair]");
+        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->viewFromFile10->sair]");
         scanf("%d", &opcao);
 
         switch (opcao)
@@ -50,6 +50,12 @@ int main()
         {
             system("clear");
             printList(head);
+            break;
+        }
+        case 2: // Read files data
+        {
+            system("clear");
+            deserialize();
             break;
         }
 

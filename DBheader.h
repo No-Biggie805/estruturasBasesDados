@@ -20,5 +20,9 @@ AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[]);
 void printList(AdminUser_t *head);
 void ConfirmLogIN(AdminUser_t *head, char name[], char password[]);
 void serialize(AdminUser_t *head);//write name data to file
+
+AdminUser_t *deserialize();//Read data from file, in dev.
+
+
 void FreeMem(AdminUser_t **head);
 // void deleteNode(AdminUser_t **head, int pos);
