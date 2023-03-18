@@ -14,16 +14,17 @@
 
 //Pushing or updating to git
 //inside the staging repo,(not some random directory..)
-1. git init
+2. git add . //only if file are not added to upstream
 
-2. git add .
+3. git status //check upstream status
 
-3. git status
-
-4. git commit -m "your message"
+4. git commit -m "your message" //commit if changes were not to be made
 
 6. git push -u origin master //then login w/ your creds-->pushing to master i believe,
                                                         can be changed to other branch
+
+
+6.5. git pull upstream master && git push origin master //CHANGE master to whatever branch is being worked on. 
 
 //To prevent files from pushing: 
 
