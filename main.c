@@ -17,16 +17,13 @@ int main()
     AdminUser_t *head = NULL;
     // AdminUser_t *newUser = NULL;
     char name[15], password[15];
-    int codename;
-
     int opcao; //, tipo_user;
 
     while (1)
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->viewFromFile/10->sair]\n");
-        printf("op:");
+        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->viewFromFile10->sair]");
         scanf("%d", &opcao);
 
         switch (opcao)
@@ -38,16 +35,14 @@ int main()
             scanf("%s", name);
             printf("enter your password:");
             scanf("%s", password);
-            printf("enter your code name: ");
-            scanf("%d", &codename);
 
-            EnterUser(&head, name, password, codename);
+            EnterUser(&head, name, password);
             // newUser = EnterUser(name, password); //to enter new user
             // newUser->next = head;
             // head = newUser;
 
-            ConfirmLogIN(head, name, codename); // passing procedure to confirm if user logged in
-            serialize(head);                              // call for serialize funtion
+            ConfirmLogIN(head, name, password); // passing procedure to confirm if user logged in
+            serialize(head);                    // call for serialize funtion
             printf("\n");
             break;
         }
