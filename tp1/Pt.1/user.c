@@ -1,3 +1,14 @@
+/**
+ * @file user.c
+ * @author Jose Santos (a18605@alunos.ipca.pt)
+ * @brief this file takes care of the functions and procedures that we are gonna use to make our link list program
+ * @version 0.1
+ * @date 2023-03-19
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
 #include "DBheader.h"
 
 // void generateNewList()
@@ -5,6 +16,13 @@
 //     head = NULL;
 // }
 
+/**
+ * @brief
+ *
+ * @param head
+ * @param codename
+ * @return int
+ */
 int existAdmin(AdminUser_t *head, int codename)
 {
     while (head != NULL)
@@ -16,6 +34,16 @@ int existAdmin(AdminUser_t *head, int codename)
     return 0;
 }
 
+/**
+ * @brief This function will create a new instance to a linked list and return new pointer
+ *
+ * //Parameters used
+ * @param head
+ * @param name
+ * @param password
+ * @param codename
+ * @return AdminUser_t* //returning as newNode pointing to linked list
+ */
 AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[], int codename) // adicionar codename
 {
     // setting up dynamic allocation
@@ -54,11 +82,13 @@ AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[], int cod
     // colocar função criar nova lista se for vazio??(ver codigo do trabalho do 1ºano, no replit)
 }
 
-/// @brief
-/// @param head
-/// @param name
-/// @param codename
-
+/**
+ * @brief procedure to do confirm the user login
+ *
+ * @param head
+ * @param name
+ * @param codename
+ */
 void ConfirmLogIN(AdminUser_t *head, char name[], int codename)
 {
     // dinamic allocation:experimental
@@ -77,12 +107,19 @@ void ConfirmLogIN(AdminUser_t *head, char name[], int codename)
             printf("\nWrong Password");
     }
     else
-        printf("\nWrong UserName");//prints if the local user is not equal to the one we should have from linked list
+        printf("\nWrong UserName"); // prints if the local user is not equal to the one we should have from linked list
 }
 
+/**
+ * @brief procedure will print the linked list data.
+ *
+ * @param head
+ */
 void printList(AdminUser_t *head) // Nao precisa mexer
 {
+
     AdminUser_t *temporary = head;
+
     if (head == NULL) // se lista for vazio
     {
         printf("\nNão Achou!!");
@@ -104,6 +141,11 @@ void printList(AdminUser_t *head) // Nao precisa mexer
 // implementation added thanks to: https://www.youtube.com/watch?v=dAZbGAhWQtw
 // insert data from linked list to a file
 
+/**
+ * @brief serialize procedure will write linked list data to file
+ *
+ * @param head
+ */
 void serialize(AdminUser_t *head) // no need to create as **head since we are not changing
                                   // data from linked list, and we only need to serialize data to a file
 {
@@ -122,6 +164,12 @@ void serialize(AdminUser_t *head) // no need to create as **head since we are no
     fclose(fp);
 }
 
+/**
+ * @brief deserialize function will take the data from file, and write to the linked list
+ *
+ * @param head
+ * @return AdminUser_t*
+ */
 AdminUser_t *deserialize(AdminUser_t **head)
 {
     FILE *fp = fopen("list.txt", "r");
@@ -162,6 +210,11 @@ AdminUser_t *deserialize(AdminUser_t **head)
     return *head;
 }
 
+/**
+ * @brief free the linked list pointer from memory in order to avoid leaks
+ *
+ * @param head
+ */
 void FreeMem(AdminUser_t **head)
 {
     printf("\nFunção Liberar, a executar..");

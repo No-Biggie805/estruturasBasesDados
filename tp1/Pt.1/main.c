@@ -10,8 +10,25 @@ estrutura base e os que serão para linked list?
 R: em principio serão todos linked lists
 */
 
+/**
+ * @file main.c
+ * @author Jose Santos(a18605@alunos.ipca.pt)
+ * @brief ficheiro main, contem o menu que ira conter as seguintes funcoes
+ * @version 0.1
+ * @date 2023-03-19
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
+
 #include "DBheader.h"
 
+
+/**
+ * @brief main function, contains the following functions
+ * @return int 
+ */
 int main()
 {
     AdminUser_t *head = NULL;
@@ -33,6 +50,10 @@ int main()
         {
         case 0:
         {
+            /**
+             * @brief user input functions
+             * 
+             */
             system("clear");
             printf("enter your username:");
             scanf("%s", name);
@@ -41,12 +62,24 @@ int main()
             printf("enter your code name: ");
             scanf("%d", &codename);
 
+            /**
+             * @brief Construct a new Enter User object
+             * 
+             */
             EnterUser(&head, name, password, codename);
             // newUser = EnterUser(name, password); //to enter new user
             // newUser->next = head;
             // head = newUser;
 
+            /**
+             * @brief Construct a new Confirm Log I N object
+             * 
+             */
             ConfirmLogIN(head, name, codename); // passing procedure to confirm if user logged in
+            /**
+             * @brief Construct a new serialize object
+             * 
+             */
             serialize(head);                              // call for serialize funtion
             printf("\n");
             break;
@@ -54,12 +87,20 @@ int main()
         case 1:
         {
             system("clear");
+            /**
+             * @brief Construct a new print List object
+             * 
+             */
             printList(head);
             break;
         }
         case 2: // Read files data
         {
             system("clear");
+            /**
+             * @brief Construct a new deserialize object
+             * 
+             */
             deserialize(&head);
             break;
         }
@@ -68,6 +109,10 @@ int main()
         {
             system("clear");
             printf("\n");
+            /**
+             * @brief Construct a new Free Mem object
+             * 
+             */
             FreeMem(&head); // funcção liberar apontadores à memoria
             printf("-->saiu do programa\n");
             return 0;
@@ -75,6 +120,10 @@ int main()
             // falta adicionar função liberar(free)
         } // end of case 1
 
+        /**
+         * @brief default state, exiting the switch case going to while loop
+         * 
+         */
         default:
             system("clear");
             printf("Error:Invalid Option");
