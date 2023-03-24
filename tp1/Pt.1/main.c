@@ -16,18 +16,16 @@ R: em principio serão todos linked lists
  * @brief ficheiro main, contem o menu que ira conter as seguintes funcoes
  * @version 0.1
  * @date 2023-03-19
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
-
 
 #include "DBheader.h"
 
-
 /**
  * @brief main function, contains the following functions
- * @return int 
+ * @return int
  */
 int main()
 {
@@ -42,17 +40,17 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->viewFromFile/10->sair]\n");
+        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->viewFromFile/3->remove_user/10->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
         switch (opcao)
         {
-        case 0:
+        case 0: // adding and auto serialization
         {
             /**
              * @brief user input functions
-             * 
+             *
              */
             system("clear");
             printf("enter your username:");
@@ -63,24 +61,24 @@ int main()
             scanf("%d", &codename);
 
             /**
-             * @brief Construct a new Enter User object
-             * 
+             * @brief Construct a new Enter User object and store to link list
+             *
              */
-            EnterUser(&head, name, password, codename);
+            head = EnterUser(&head, name, password, codename);
             // newUser = EnterUser(name, password); //to enter new user
             // newUser->next = head;
             // head = newUser;
 
             /**
              * @brief Construct a new Confirm Log I N object
-             * 
+             *
              */
             ConfirmLogIN(head, name, codename); // passing procedure to confirm if user logged in
             /**
              * @brief Construct a new serialize object
-             * 
+             *
              */
-            serialize(head);                              // call for serialize funtion
+            serialize(head); // call for serialize funtion
             printf("\n");
             break;
         }
@@ -89,7 +87,7 @@ int main()
             system("clear");
             /**
              * @brief Construct a new print List object
-             * 
+             *
              */
             printList(head);
             break;
@@ -99,10 +97,43 @@ int main()
             system("clear");
             /**
              * @brief Construct a new deserialize object
-             * 
+             *
              */
             deserialize(&head);
             break;
+        }
+
+        case 3:
+        {
+            system("clear");
+            /**
+             * @brief Construct a new serialize object
+             *
+             */
+            serialize(head); // serialize at runtime whithout adding new user
+        }
+
+        case 4:
+        {
+            system("clear");
+            printf("remover o user:\n");
+            printf("insira o codigo do gestor:");
+            scanf("%d", &codename);
+            /**
+             * @brief call the delete funtion and store to linked list
+             *
+             */
+            head = deleteUser(head, codename);
+            break;
+        }
+
+        case 5:
+        {
+            system("clear");
+            printf("funcao modificar data do user:");
+            printf("insira o codigo do gestor");
+            scanf("%d", &codename);
+            head = ModUser(&head, codename, name, password);
         }
 
         case 10:
@@ -111,7 +142,7 @@ int main()
             printf("\n");
             /**
              * @brief Construct a new Free Mem object
-             * 
+             *
              */
             FreeMem(&head); // funcção liberar apontadores à memoria
             printf("-->saiu do programa\n");
@@ -122,7 +153,7 @@ int main()
 
         /**
          * @brief default state, exiting the switch case going to while loop
-         * 
+         *
          */
         default:
             system("clear");

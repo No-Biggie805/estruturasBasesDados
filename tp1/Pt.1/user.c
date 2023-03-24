@@ -118,7 +118,7 @@ void ConfirmLogIN(AdminUser_t *head, char name[], int codename)
 void printList(AdminUser_t *head) // Nao precisa mexer
 {
 
-    AdminUser_t *temporary = head;
+    // AdminUser_t *temporary = head;
 
     if (head == NULL) // se lista for vazio
     {
@@ -127,13 +127,13 @@ void printList(AdminUser_t *head) // Nao precisa mexer
     }
     else
     {
-        while (temporary != NULL) // enquanto não terminar a nossa lista..
+        while (head != NULL) // enquanto não terminar a nossa lista..
         {
-            printf("printing name: %s", temporary->name); // excrever por nome na consola
-            printf("\tprinting the codename: %d", temporary->codename);
+            printf("printing name: %s", head->name); // excrever por nome na consola
+            printf("\tprinting the codename: %d", head->codename);
             printf("\n----------x------------\n");
             // getchar();
-            temporary = temporary->next; // avança nodo seguinte
+            head = head->next; // avança nodo seguinte
         }
     }
 }
@@ -208,6 +208,93 @@ AdminUser_t *deserialize(AdminUser_t **head)
 
     printf("-->Data loaded from file sucessfully\n");
     return *head;
+}
+
+// AdminUser_t *deleteUser(AdminUser_t *head, int codename)
+// {
+// }
+
+AdminUser_t *deleteUser(AdminUser_t *head, int codename)
+{
+    AdminUser_t *current = head, *prev = head, *temp;
+    if (current == NULL)
+    {
+        printf("list is empty, insert an user first");
+        return NULL;
+    }
+    else
+
+        if (current->codename == codename) // remove first instance found
+    {
+        temp = current->next;
+        free(current);
+        printf("removeu o 1º da lista");
+        return temp;
+    }
+    else
+    {
+        // Find the instance we want deleted and delete it
+        while (current != NULL && current->codename != codename)
+        {
+            // if (temp->codename == codename)
+            // {
+            prev = current;
+            current = current->next;
+            // }
+            // *head = &(*head)->next; // continua a percorrer dentro da lista
+        }
+        // remove the node
+        if (current == NULL)
+        {
+            // temp = *head;
+            return head;
+        }
+        else
+        {
+            prev->next = current->next;
+            free(current);
+            return (head);
+            printf("removeu o ultimo da lista");
+        }
+        // reached the end of procedure, no need to add return.
+    }
+}
+
+AdminUser_t *ModUser(AdminUser_t **head, int codename, char *name, char *password)
+{
+    // setting up dynamic memory allocation pointer.
+    AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
+    AdminUser_t *current = *head, *temp = *head;
+
+    if (current == NULL)
+    {
+        printf("Lista esta vazia!!");
+        return NULL;
+    }
+    else if (current->codename == codename) // if current find that our modifiable node is head
+    {                                       // start modifying head
+        strcpy(newNode->name, name);        // copy name
+        strcpy(newNode->password, password);
+        newNode->codename = codename;
+        current = newNode;
+        return current;
+    }
+    else
+    {
+        while (current != NULL)
+        {
+            if (current->codename == codename)
+            {
+                strcpy(newNode->name, name); // copy name
+                strcpy(newNode->password, password);
+                newNode->codename = codename;
+                temp = newNode;
+                return temp;
+            }
+            temp = temp->next;
+        }
+    }
+    printf("Error: could not find node with codename %d\n", codename);
 }
 
 /**
