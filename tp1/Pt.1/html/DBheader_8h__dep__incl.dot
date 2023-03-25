@@ -1,0 +1,11 @@
+digraph "DBheader.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="DBheader.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="header file to manage core data of the link list program"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html",tooltip="ficheiro main, contem o menu que ira conter as seguintes funcoes"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="user.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$user_8c.html",tooltip="this file takes care of the functions and procedures that we are gonna use to make our link list prog..."];
+}

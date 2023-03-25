@@ -17,7 +17,7 @@
 // }
 
 /**
- * @brief
+ * @brief Checks if "gestor" exists.
  *
  * @param head
  * @param codename
@@ -260,41 +260,53 @@ AdminUser_t *deleteUser(AdminUser_t *head, int codename)
     }
 }
 
-AdminUser_t *ModUser(AdminUser_t **head, int codename, char *name, char *password)
+
+/**
+ * @brief Modify User data in to the linked list
+ * 
+ * @param head 
+ * @param codename 
+ * @param name 
+ * @param password 
+ */
+void ModUser(AdminUser_t **head, int codename, char *name, char *password)
 {
     // setting up dynamic memory allocation pointer.
-    AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
-    AdminUser_t *current = *head, *temp = *head;
+    // AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
+    AdminUser_t *temp = *head;
 
-    if (current == NULL)
+    if (temp == NULL)
     {
-        printf("Lista esta vazia!!");
-        return NULL;
+        printf("Lista esta vazia!!\n");
+        return;
     }
-    else if (current->codename == codename) // if current find that our modifiable node is head
-    {                                       // start modifying head
-        strcpy(newNode->name, name);        // copy name
-        strcpy(newNode->password, password);
-        newNode->codename = codename;
-        current = newNode;
-        return current;
+    else if (temp->codename == codename) // if current find that our modifiable node is head
+    {                                    // start modifying head
+        strcpy(temp->name, name);        // copy name
+        strcpy(temp->password, password);
+        temp->codename = codename;
+
+        return;
     }
     else
     {
-        while (current != NULL)
+        while (temp != NULL)
         {
-            if (current->codename == codename)
+            if (temp->codename == codename)
             {
-                strcpy(newNode->name, name); // copy name
-                strcpy(newNode->password, password);
-                newNode->codename = codename;
-                temp = newNode;
-                return temp;
+                strcpy(temp->name, name); // copy name
+                strcpy(temp->password, password);
+                temp->codename = codename;
+                // temp = newNode;
+                return;
             }
             temp = temp->next;
         }
+        // }
+
+        printf("Error: could not find node with codename %d\n", codename);
+        // return NULL;
     }
-    printf("Error: could not find node with codename %d\n", codename);
 }
 
 /**

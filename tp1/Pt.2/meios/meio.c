@@ -47,26 +47,32 @@ int existeMeio(Meio *inicio, int cod)
       return (1);              // return 1 quererá dizer verdadeiro
     inicio = inicio->seguinte; // senão continuará a ver até ao fim da lista
                                // o procedimento, por trás, atualiza o seguinte da struct(ou linked list)
-  } // chegou a NULL, terminou a lista
+  }                            // chegou a NULL, terminou a lista
 
   return (0); // função retorna 0 se e só se o bloco vir que deu falso
 }
 
-/*
-Meio* removerMeio(Meio* inicio, int cod) // Remover um meio a partir do seu código
-{while (inicio!=NULL)
- {if (inicio->codigo==cod)
-   {aux = inicio->seguinte;
-          free(inicio);
-    return(aux);
-   }
-  else {inicio = removerMeio(inicio->seguinte,cod);
-  return(inicio);
-       }
- }
+Meio *removerMeio(Meio *inicio, int cod) // Remover um meio a partir do seu código
+{
+  Meio *aux;
+  
+  while (inicio != NULL)
+  {
+    if (inicio->codigo == cod)
+    {
+      aux = inicio->seguinte;
+      free(inicio);
+      return (aux);
+    }
+    else
+    {
+      inicio = removerMeio(inicio->seguinte, cod);
+      return (inicio);
+    }
+  }
 }
-*/
 
+/*
 // Remover um meio a partir do seu código{
 Meio *removerMeio(Meio *inicio, int cod)
 {
@@ -82,14 +88,14 @@ Meio *removerMeio(Meio *inicio, int cod)
   }
   else
   {
-    while ((atual != NULL) && (atual->codigo != cod))
+    while ((atual != NULL) && (atual->codigo != cod))//procurar na lista
     {
       anterior = atual;
       atual = atual->seguinte;
     }
     if (atual == NULL)
       return (inicio);
-    else
+    else//se o atual ñ atingiu o fim da linked list ao longo do ciclo while
     {
       anterior->seguinte = atual->seguinte;
       free(atual);
@@ -97,17 +103,17 @@ Meio *removerMeio(Meio *inicio, int cod)
     }
   }
 }
-
+*/
 void freeMem(Meio *inicio)
 {
-   printf("\nFunção Liberar, a executar..");
-    Meio *newNode = inicio;
-    Meio *temp;
-    while (newNode != NULL)
-    {
-        // temp = newNode;
-        temp = newNode->seguinte;
-        newNode = temp;
-        free(newNode);
-    }
+  printf("\nFunção Liberar, a executar..");
+  Meio *newNode = inicio;
+  Meio *temp;
+  while (newNode != NULL)
+  {
+    // temp = newNode;
+    temp = newNode->seguinte;
+    newNode = temp;
+    free(newNode);
+  }
 }
