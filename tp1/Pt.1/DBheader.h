@@ -35,4 +35,4 @@ AdminUser_t *deserialize(AdminUser_t **head); // Read data from file, in dev.
 void FreeMem(AdminUser_t **head);
 int existAdmin(AdminUser_t *head, int codename);
 AdminUser_t *deleteUser(AdminUser_t *head, int codename);
-AdminUser_t *ModUser(AdminUser_t **head, int codename, char *name, char *password);
+void ModUser(AdminUser_t **head, int codename, char *name, char *password);

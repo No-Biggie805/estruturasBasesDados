@@ -1,0 +1,169 @@
+\hypertarget{user_8c}{}\doxysection{user.\+c File Reference}
+\label{user_8c}\index{user.c@{user.c}}
+
+
+this file takes care of the functions and procedures that we are gonna use to make our link list program  
+
+
+{\ttfamily \#include \char`\"{}DBheader.\+h\char`\"{}}\newline
+Include dependency graph for user.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{user_8c_a31c912c1bb401800ec9cb42f64c4f253}{exist\+Admin}} (\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$head, int codename)
+\item 
+\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$ \mbox{\hyperlink{user_8c_abaa4f57649d1cb8aef22728f71db39d1}{Enter\+User}} (\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$$\ast$head, char name\mbox{[}$\,$\mbox{]}, char password\mbox{[}$\,$\mbox{]}, int codename)
+\begin{DoxyCompactList}\small\item\em This function will create a new instance to a linked list and return new pointer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{user_8c_a03874ce95a05383a3ae13f7858a3e89a}{Confirm\+Log\+IN}} (\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$head, char name\mbox{[}$\,$\mbox{]}, int codename)
+\begin{DoxyCompactList}\small\item\em procedure to do confirm the user login \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{user_8c_a06758de3caab8ee14518596d1f5db62a}{print\+List}} (\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$head)
+\begin{DoxyCompactList}\small\item\em procedure will print the linked list data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{user_8c_a94bccdac0f78487644c1a0204ae32530}{serialize}} (\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$head)
+\begin{DoxyCompactList}\small\item\em serialize procedure will write linked list data to file \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$ \mbox{\hyperlink{user_8c_af3677dc1fd4cb11a61aa605742737cad}{deserialize}} (\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$$\ast$head)
+\begin{DoxyCompactList}\small\item\em deserialize function will take the data from file, and write to the linked list \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{user_8c_af56494fb4c9ee580b7444cdf62256f37}{Free\+Mem}} (\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$$\ast$head)
+\begin{DoxyCompactList}\small\item\em free the linked list pointer from memory in order to avoid leaks \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+this file takes care of the functions and procedures that we are gonna use to make our link list program 
+
+\begin{DoxyAuthor}{Author}
+Jose Santos (\href{mailto:a18605@alunos.ipca.pt}{\texttt{ a18605@alunos.\+ipca.\+pt}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2023-\/03-\/19
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2023 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{user_8c_a03874ce95a05383a3ae13f7858a3e89a}\label{user_8c_a03874ce95a05383a3ae13f7858a3e89a}} 
+\index{user.c@{user.c}!ConfirmLogIN@{ConfirmLogIN}}
+\index{ConfirmLogIN@{ConfirmLogIN}!user.c@{user.c}}
+\doxysubsubsection{\texorpdfstring{ConfirmLogIN()}{ConfirmLogIN()}}
+{\footnotesize\ttfamily void Confirm\+Log\+IN (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$}]{head,  }\item[{char}]{name\mbox{[}$\,$\mbox{]},  }\item[{int}]{codename }\end{DoxyParamCaption})}
+
+
+
+procedure to do confirm the user login 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & \\
+\hline
+{\em name} & \\
+\hline
+{\em codename} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{user_8c_af3677dc1fd4cb11a61aa605742737cad}\label{user_8c_af3677dc1fd4cb11a61aa605742737cad}} 
+\index{user.c@{user.c}!deserialize@{deserialize}}
+\index{deserialize@{deserialize}!user.c@{user.c}}
+\doxysubsubsection{\texorpdfstring{deserialize()}{deserialize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}}$\ast$ deserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$$\ast$}]{head }\end{DoxyParamCaption})}
+
+
+
+deserialize function will take the data from file, and write to the linked list 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Admin\+User\+\_\+t$\ast$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{user_8c_abaa4f57649d1cb8aef22728f71db39d1}\label{user_8c_abaa4f57649d1cb8aef22728f71db39d1}} 
+\index{user.c@{user.c}!EnterUser@{EnterUser}}
+\index{EnterUser@{EnterUser}!user.c@{user.c}}
+\doxysubsubsection{\texorpdfstring{EnterUser()}{EnterUser()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}}$\ast$ Enter\+User (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$$\ast$}]{head,  }\item[{char}]{name\mbox{[}$\,$\mbox{]},  }\item[{char}]{password\mbox{[}$\,$\mbox{]},  }\item[{int}]{codename }\end{DoxyParamCaption})}
+
+
+
+This function will create a new instance to a linked list and return new pointer. 
+
+//\+Parameters used 
+\begin{DoxyParams}{Parameters}
+{\em head} & \\
+\hline
+{\em name} & \\
+\hline
+{\em password} & \\
+\hline
+{\em codename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Admin\+User\+\_\+t$\ast$ //returning as new\+Node pointing to linked list 
+\end{DoxyReturn}
+\mbox{\Hypertarget{user_8c_a31c912c1bb401800ec9cb42f64c4f253}\label{user_8c_a31c912c1bb401800ec9cb42f64c4f253}} 
+\index{user.c@{user.c}!existAdmin@{existAdmin}}
+\index{existAdmin@{existAdmin}!user.c@{user.c}}
+\doxysubsubsection{\texorpdfstring{existAdmin()}{existAdmin()}}
+{\footnotesize\ttfamily int exist\+Admin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$}]{head,  }\item[{int}]{codename }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & \\
+\hline
+{\em codename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{user_8c_af56494fb4c9ee580b7444cdf62256f37}\label{user_8c_af56494fb4c9ee580b7444cdf62256f37}} 
+\index{user.c@{user.c}!FreeMem@{FreeMem}}
+\index{FreeMem@{FreeMem}!user.c@{user.c}}
+\doxysubsubsection{\texorpdfstring{FreeMem()}{FreeMem()}}
+{\footnotesize\ttfamily void Free\+Mem (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$$\ast$}]{head }\end{DoxyParamCaption})}
+
+
+
+free the linked list pointer from memory in order to avoid leaks 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{user_8c_a06758de3caab8ee14518596d1f5db62a}\label{user_8c_a06758de3caab8ee14518596d1f5db62a}} 
+\index{user.c@{user.c}!printList@{printList}}
+\index{printList@{printList}!user.c@{user.c}}
+\doxysubsubsection{\texorpdfstring{printList()}{printList()}}
+{\footnotesize\ttfamily void print\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$}]{head }\end{DoxyParamCaption})}
+
+
+
+procedure will print the linked list data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{user_8c_a94bccdac0f78487644c1a0204ae32530}\label{user_8c_a94bccdac0f78487644c1a0204ae32530}} 
+\index{user.c@{user.c}!serialize@{serialize}}
+\index{serialize@{serialize}!user.c@{user.c}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily void serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structAdminUser}{Admin\+User\+\_\+t}} $\ast$}]{head }\end{DoxyParamCaption})}
+
+
+
+serialize procedure will write linked list data to file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em head} & \\
+\hline
+\end{DoxyParams}

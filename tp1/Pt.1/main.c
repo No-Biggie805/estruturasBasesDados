@@ -40,7 +40,7 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->viewFromFile/3->remove_user/10->sair]\n");
+        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->ViewFromFile/3->SaveToFile/4->RemoveUser/5->ModifyUserData/10->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
@@ -111,6 +111,7 @@ int main()
              *
              */
             serialize(head); // serialize at runtime whithout adding new user
+            break;
         }
 
         case 4:
@@ -130,10 +131,16 @@ int main()
         case 5:
         {
             system("clear");
-            printf("funcao modificar data do user:");
-            printf("insira o codigo do gestor");
+            printf("funcao modificar data do user:\n");
+            printf("insira o codigo do gestor:");
             scanf("%d", &codename);
-            head = ModUser(&head, codename, name, password);
+            printf("\ninsira name:");
+            scanf("%s", name);
+            printf("\ninsira password:");
+            scanf("%s", password);
+
+            ModUser(&head, codename, name, password);
+            break;
         }
 
         case 10:
