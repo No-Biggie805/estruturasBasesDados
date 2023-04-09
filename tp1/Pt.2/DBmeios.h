@@ -34,5 +34,5 @@ void serialize(AdminUser_t *head); // write name data to file
 AdminUser_t *deserialize(AdminUser_t **head); // Read data from file, in dev.
 void FreeMem(AdminUser_t **head);
 int existAdmin(AdminUser_t *head, int CodeID);
-// AdminUser_t *deleteUser(AdminUser_t *head, int codename);
-// void ModUser(AdminUser_t **head, int codename, char *name, char *password);
+AdminUser_t *deleteMeio(AdminUser_t *head, int CodeID);
+void ModMeio(AdminUser_t **head, char *type, int CodeID, float batery, float autonomia);

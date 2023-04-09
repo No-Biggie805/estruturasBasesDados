@@ -214,99 +214,98 @@ AdminUser_t *deserialize(AdminUser_t **head)
     return *head;
 }
 
-// AdminUser_t *deleteUser(AdminUser_t *head, int codename)
-// {
-//     AdminUser_t *current = head, *prev = head, *temp;
-//     if (current == NULL)
-//     {
-//         printf("list is empty, insert an user first");
-//         return NULL;
-//     }
-//     else
+AdminUser_t *deleteMeio(AdminUser_t *head, int CodeID)
+{
+    AdminUser_t *current = head, *prev = head, *temp;
+    if (current == NULL)
+    {
+        printf("list is empty, insert an user first");
+        return NULL;
+    }
+    else
 
-//         if (current->codename == codename) // remove first instance found
-//     {
-//         temp = current->next;
-//         free(current);
-//         printf("removeu o 1º da lista");
-//         return temp;
-//     }
-//     else
-//     {
-//         // Find the instance we want deleted and delete it
-//         while (current != NULL && current->codename != codename)
-//         {
-//             // if (temp->codename == codename)
-//             // {
-//             prev = current;
-//             current = current->next;
-//             // }
-//             // *head = &(*head)->next; // continua a percorrer dentro da lista
-//         }
-//         // remove the node
-//         if (current == NULL)
-//         {
-//             // temp = *head;
-//             return head;
-//         }
-//         else
-//         {
-//             prev->next = current->next;
-//             free(current);
-//             return (head);
-//             printf("removeu o ultimo da lista");
-//         }
-//         // reached the end of procedure, no need to add return.
-//     }
-// }
+        if (current->CodeID == CodeID) // remove first instance found
+    {
+        temp = current->next;
+        free(current);
+        printf("removeu o 1º da lista");
+        return temp;
+    }
+    else
+    {
+        // Find the instance we want deleted and delete it
+        while (current != NULL && current->CodeID != CodeID)
+        {
+            // if (temp->codename == codename)
+            // {
+            prev = current;
+            current = current->next;
+            // }
+            // *head = &(*head)->next; // continua a percorrer dentro da lista
+        }
+        // remove the node
+        if (current == NULL)
+        {
+            // temp = *head;
+            return head;
+        }
+        else
+        {
+            prev->next = current->next;
+            free(current);
+            return (head);
+            printf("removeu o ultimo da lista");
+        }
+        // reached the end of procedure, no need to add return.
+    }
+}
 
-// /**
-//  * @brief Modify User data in to the linked list
-//  *
-//  * @param head
-//  * @param codename
-//  * @param name
-//  * @param password
-//  */
-// void ModUser(AdminUser_t **head, int codename, char *name, char *password)
-// {
-//     // setting up dynamic memory allocation pointer.
-//     // AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
-//     AdminUser_t *temp = *head;
+/**
+ * @brief Modify User data in to the linked list
+ *
+ * @param head
+ * @param codename
+ * @param name
+ * @param password
+ */
+void ModMeio(AdminUser_t **head, char *type, int CodeID, float batery, float autonomia)
+{
+    // setting up dynamic memory allocation pointer.
+    // AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
+    AdminUser_t *temp = *head;
 
-//     if (temp == NULL)
-//     {
-//         printf("Lista esta vazia!!\n");
-//         return;
-//     }
-//     else if (temp->codename == codename) // if current find that our modifiable node is head
-//     {                                    // start modifying head
-//         strcpy(temp->name, name);        // copy name
-//         strcpy(temp->password, password);
-//         temp->codename = codename;
+    if (temp == NULL)
+    {
+        printf("Lista esta vazia!!\n");
+        return;
+    }
+    else if (temp->CodeID == CodeID) // if current find that our modifiable node is head
+    {                                // start modifying head
+        strcpy(temp->type, type);    // copy name
+        temp->CodeID = CodeID;
+        temp->batery = batery;
+        temp->autonomia = autonomia;
 
-//         return;
-//     }
-//     else
-//     {
-//         while (temp != NULL)
-//         {
-//             if (temp->codename == codename)
-//             {
-//                 strcpy(temp->name, name); // copy name
-//                 strcpy(temp->password, password);
-//                 temp->codename = codename;
-//                 // temp = newNode;
-//                 return;
-//             }
-//             temp = temp->next;
-//         }
-//         // }
+        return;
+    }
+    else
+    {
+        while (temp != NULL)
+        {
+            if (temp->CodeID == CodeID)
+            {
+                strcpy(temp->type, type); // copy name
+                temp->CodeID = CodeID;
+                temp->batery = batery;
+                temp->autonomia = autonomia;
+                return;
+            }
+            temp = temp->next;
+        }
 
-//         printf("Error: could not find node with codename %d\n", codename);
-//         // return NULL;
-//     }
-// }
+        printf("Error: could not find node with CodeID %d\n", CodeID);
+    }
+}
 
 /**
  * @brief free the linked list pointer from memory in order to avoid leaks

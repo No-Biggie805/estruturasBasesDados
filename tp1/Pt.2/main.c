@@ -117,34 +117,35 @@ int main()
             break;
         }
 
-            // case 4:
-            // {
-            //     system("clear");
-            //     printf("remover o user:\n");
-            //     printf("insira o codigo do gestor:");
-            //     scanf("%d", &codename);
-            //     /**
-            //      * @brief call the delete funtion and store to linked list
-            //      *
-            //      */
-            //     head = deleteUser(head, codename);
-            //     break;
-            // }
+        case 4:
+        {
+            system("clear");
+            printf("remover o meio:\n");
+            printf("insira o codigo do veiculo:");
+            scanf("%d", &CodeID);
+            /**
+             * @brief call the delete funtion and store to linked list
+             *
+             */
+            head = deleteMeio(head, CodeID);
+            break;
+        }
 
-            // case 5:
-            // {
-            //     system("clear");
-            //     printf("funcao modificar data do user:\n");
-            //     printf("insira o codigo do gestor:");
-            //     scanf("%d", &codename);
-            //     printf("\ninsira name:");
-            //     scanf("%s", name);
-            //     printf("\ninsira password:");
-            //     scanf("%s", password);
-
-            //     ModUser(&head, codename, name, password);
-            //     break;
-            // }
+        case 5:
+        {
+            system("clear");
+            printf("funcao modificar data do Meio:\n");
+            printf("insira o codigo/ID do meio: ");
+            scanf("%d", &CodeID);
+            printf("\ninsira tipo: ");
+            scanf("%s", tipo);
+            printf("\ninsira nova bateria: ");
+            scanf("%f", &bateria);
+            printf("\ninsira nova autonomia: ");
+            scanf("%f", &autonomia);
+            ModMeio(&head, tipo, CodeID, bateria, autonomia);
+            break;
+        }
 
         case 10:
         {
@@ -158,7 +159,6 @@ int main()
             printf("-->saiu do programa\n");
             return 0;
             break;
-            // falta adicionar função liberar(free)
         } // end of case 1
 
         /**
