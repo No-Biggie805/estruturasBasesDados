@@ -11,7 +11,7 @@ CC=gcc
 CFLAGS=-Wall -g
 
 #insert other .c here:
-SOURCES=main.c user.c
+SOURCES=main.c meios.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=main
 

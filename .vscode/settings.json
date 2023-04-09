@@ -1,4 +1,7 @@
 {
     "cmake.configureOnOpen": false,
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "files.associations": {
+        "dbheader.h": "c"
+    }
 }

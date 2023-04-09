@@ -21,7 +21,7 @@ R: em principio serão todos linked lists
  *
  */
 
-#include "DBheader.h"
+#include "DBmeios.h"
 
 /**
  * @brief main function, contains the following functions
@@ -30,9 +30,10 @@ R: em principio serão todos linked lists
 int main()
 {
     AdminUser_t *head = NULL;
-    // AdminUser_t *newUser = NULL;
-    char name[15], password[15];
-    int codename;
+    
+    char tipo[50];
+    int CodeID;
+    float bateria, autonomia;
 
     int opcao; //, tipo_user;
 
@@ -53,32 +54,34 @@ int main()
              *
              */
             system("clear");
-            printf("enter your username:");
-            scanf("%s", name);
-            printf("enter your password:");
-            scanf("%s", password);
-            printf("enter your code name: ");
-            scanf("%d", &codename);
+            printf("enter vehicle ID:");
+            scanf("%d", &CodeID);
+            printf("enter vehicle type:");
+            scanf("%s", tipo);
+            printf("enter the amount of batery resting: ");
+            scanf("%f", &bateria);
+            printf("enter what autonomy will it have: ");
+            scanf("%f", &autonomia);
 
             /**
              * @brief Construct a new Enter User object and store to link list
              *
              */
-            head = EnterUser(&head, name, password, codename);
+            head = insertMeio(&head, tipo, CodeID, bateria, autonomia);
             // newUser = EnterUser(name, password); //to enter new user
             // newUser->next = head;
             // head = newUser;
 
-            /**
-             * @brief Construct a new Confirm Log I N object
-             *
-             */
-            ConfirmLogIN(head, name, codename); // passing procedure to confirm if user logged in
-            /**
-             * @brief Construct a new serialize object
-             *
-             */
-            serialize(head); // call for serialize funtion
+            // /**
+            //  * @brief Construct a new Confirm Log I N object
+            //  *
+            //  */
+            // ConfirmLogIN(head, name, codename); // passing procedure to confirm if user logged in
+            // /**
+            //  * @brief Construct a new serialize object
+            //  *
+            //  */
+            // serialize(head); // call for serialize funtion
             printf("\n");
             break;
         }
@@ -92,56 +95,56 @@ int main()
             printList(head);
             break;
         }
-        case 2: // Read files data
-        {
-            system("clear");
-            /**
-             * @brief Construct a new deserialize object
-             *
-             */
-            deserialize(&head);
-            break;
-        }
+            // case 2: // Read files data
+            // {
+            //     system("clear");
+            //     /**
+            //      * @brief Construct a new deserialize object
+            //      *
+            //      */
+            //     deserialize(&head);
+            //     break;
+            // }
 
-        case 3:
-        {
-            system("clear");
-            /**
-             * @brief Construct a new serialize object
-             *
-             */
-            serialize(head); // serialize at runtime whithout adding new user
-            break;
-        }
+            // case 3:
+            // {
+            //     system("clear");
+            //     /**
+            //      * @brief Construct a new serialize object
+            //      *
+            //      */
+            //     serialize(head); // serialize at runtime whithout adding new user
+            //     break;
+            // }
 
-        case 4:
-        {
-            system("clear");
-            printf("remover o user:\n");
-            printf("insira o codigo do gestor:");
-            scanf("%d", &codename);
-            /**
-             * @brief call the delete funtion and store to linked list
-             *
-             */
-            head = deleteUser(head, codename);
-            break;
-        }
+            // case 4:
+            // {
+            //     system("clear");
+            //     printf("remover o user:\n");
+            //     printf("insira o codigo do gestor:");
+            //     scanf("%d", &codename);
+            //     /**
+            //      * @brief call the delete funtion and store to linked list
+            //      *
+            //      */
+            //     head = deleteUser(head, codename);
+            //     break;
+            // }
 
-        case 5:
-        {
-            system("clear");
-            printf("funcao modificar data do user:\n");
-            printf("insira o codigo do gestor:");
-            scanf("%d", &codename);
-            printf("\ninsira name:");
-            scanf("%s", name);
-            printf("\ninsira password:");
-            scanf("%s", password);
+            // case 5:
+            // {
+            //     system("clear");
+            //     printf("funcao modificar data do user:\n");
+            //     printf("insira o codigo do gestor:");
+            //     scanf("%d", &codename);
+            //     printf("\ninsira name:");
+            //     scanf("%s", name);
+            //     printf("\ninsira password:");
+            //     scanf("%s", password);
 
-            ModUser(&head, codename, name, password);
-            break;
-        }
+            //     ModUser(&head, codename, name, password);
+            //     break;
+            // }
 
         case 10:
         {
