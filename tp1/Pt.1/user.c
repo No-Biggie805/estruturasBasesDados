@@ -210,10 +210,6 @@ AdminUser_t *deserialize(AdminUser_t **head)
     return *head;
 }
 
-// AdminUser_t *deleteUser(AdminUser_t *head, int codename)
-// {
-// }
-
 AdminUser_t *deleteUser(AdminUser_t *head, int codename)
 {
     AdminUser_t *current = head, *prev = head, *temp;

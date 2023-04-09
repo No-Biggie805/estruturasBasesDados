@@ -11,13 +11,8 @@
 
 #include "DBmeios.h"
 
-// void generateNewList()
-// {
-//     head = NULL;
-// }
-
 /**
- * @brief Checks if "gestor" exists.
+ * @brief Checks if "vehicle" exists.
  *
  * @param head
  * @param CodeID
@@ -142,81 +137,82 @@ void printList(AdminUser_t *head) // Nao precisa mexer
     }
 }
 
-// // implementation added thanks to: https://www.youtube.com/watch?v=dAZbGAhWQtw
-// // insert data from linked list to a file
+// implementation added thanks to: https://www.youtube.com/watch?v=dAZbGAhWQtw
+// insert data from linked list to a file
 
-// /**
-//  * @brief serialize procedure will write linked list data to file
-//  *
-//  * @param head
-//  */
-// void serialize(AdminUser_t *head) // no need to create as **head since we are not changing
-//                                   // data from linked list, and we only need to serialize data to a file
-// {
-//     FILE *fp = fopen("list.txt", "w");
-//     if (fp == NULL)
-//     {
-//         printf("error opening file");
-//         // exit(1);
-//         return;
-//     }
-//     AdminUser_t *temp = head;
-//     for (temp = head; temp != NULL; temp = temp->next)
-//     {
-//         fprintf(fp, "%s|%s|%d\n", temp->name, temp->password, temp->codename); // adicionar codename
-//     }
-//     fclose(fp);
-// }
+/**
+ * @brief serialize procedure will write linked list data to file
+ *
+ * @param head
+ */
+void serialize(AdminUser_t *head) // no need to create as **head since we are not changing
+                                  // data from linked list, and we only need to serialize data to a file
+{
+    FILE *fp = fopen("list.txt", "w");
+    if (fp == NULL)
+    {
+        printf("error opening file");
+        // exit(1);
+        return;
+    }
+    AdminUser_t *temp = head;
+    for (temp = head; temp != NULL; temp = temp->next)
+    {
+        fprintf(fp, "%s|%d|%f|%f\n", temp->type, temp->CodeID, temp->batery, temp->autonomia); // adicionar codename
+    }
+    fclose(fp);
+}
 
-// /**
-//  * @brief deserialize function will take the data from file, and write to the linked list
-//  *
-//  * @param head
-//  * @return AdminUser_t*
-//  */
-// AdminUser_t *deserialize(AdminUser_t **head)
-// {
-//     FILE *fp = fopen("list.txt", "r");
-//     // AdminUser_t *temp = NULL;
-//     char name[15], password[15];
-//     int codename;
-//     // AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
-//     if (fp == NULL) // yes, this works
-//     {
-//         return NULL; // or return if void ??
-//     }
-//     else if (fp != NULL)
-//     {
-//         while (fscanf(fp, "%[^|]|%[^|]|%d\n", name, password, &codename) != EOF) // scanning while it has not reached the E.O.F.
-//         {
-//             if (head == NULL)
-//             {
-//                 printf("making empty list are we?");
-//             }
-//             else
-//             {
-//                 // fscanf(fp, "%[^|]|%[^|]|\n", name, password);
-//                 // submiting to linked list inside of head
+/**
+ * @brief deserialize function will take the data from file, and write to the linked list
+ *
+ * @param head
+ * @return AdminUser_t*
+ */
+AdminUser_t *deserialize(AdminUser_t **head)
+{
+    FILE *fp = fopen("list.txt", "r");
+    // AdminUser_t *temp = NULL;
+    // char name[15], password[15];
+    // int codename;
 
-//                 // adicionar codename
-//                 *head = EnterUser(&(*head), name, password, codename); // experimental, its werks yay
+    char type[50];
+    int CodeID;
+    float batery, autonomia;
 
-//                 // strcpy(newNode->name, name);
-//                 // strcpy(newNode->password, password);
-//                 // newNode->next = *head;
-//                 // *head = newNode;}
-//             }
-//         }
-//         fclose(fp);
-//     }
+    // AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
+    if (fp == NULL) // yes, this works
+    {
+        return NULL; // or return if void ??
+    }
+    else if (fp != NULL)
+    {
+        while (fscanf(fp, "%[^|]|%d|%f|%f\n", type, &CodeID, &batery, &autonomia) != EOF) // scanning while it has not reached the E.O.F.
+        {
+            if (head == NULL)
+            {
+                printf("making empty list are we?");
+            }
+            else
+            {
+                // fscanf(fp, "%[^|]|%[^|]|\n", name, password);
+                // submiting to linked list inside of head
 
-//     printf("-->Data loaded from file sucessfully\n");
-//     return *head;
-// }
+                // adicionar codename
+                *head = insertMeio(&(*head), type, CodeID, batery, autonomia); // experimental, its werks yay
 
-// // AdminUser_t *deleteUser(AdminUser_t *head, int codename)
-// // {
-// // }
+                // strcpy(newNode->name, name);
+                // strcpy(newNode->password, password);
+                // newNode->next = *head;
+                // *head = newNode;}
+            }
+        }
+        fclose(fp);
+    }
+
+    printf("-->Data loaded from file sucessfully\n");
+    return *head;
+}
 
 // AdminUser_t *deleteUser(AdminUser_t *head, int codename)
 // {

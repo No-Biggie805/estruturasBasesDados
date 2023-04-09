@@ -30,7 +30,7 @@ R: em principio serão todos linked lists
 int main()
 {
     AdminUser_t *head = NULL;
-    
+
     char tipo[50];
     int CodeID;
     float bateria, autonomia;
@@ -41,7 +41,7 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->ViewFromFile/3->SaveToFile/4->RemoveUser/5->ModifyUserData/10->sair]\n");
+        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/10->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
@@ -64,7 +64,7 @@ int main()
             scanf("%f", &autonomia);
 
             /**
-             * @brief Construct a new Enter User object and store to link list
+             * @brief Construct a new insertMeio object and store to link list
              *
              */
             head = insertMeio(&head, tipo, CodeID, bateria, autonomia);
@@ -95,27 +95,27 @@ int main()
             printList(head);
             break;
         }
-            // case 2: // Read files data
-            // {
-            //     system("clear");
-            //     /**
-            //      * @brief Construct a new deserialize object
-            //      *
-            //      */
-            //     deserialize(&head);
-            //     break;
-            // }
+        case 2: // Read files data
+        {
+            system("clear");
+            /**
+             * @brief Construct a new deserialize object
+             *
+             */
+            deserialize(&head);
+            break;
+        }
 
-            // case 3:
-            // {
-            //     system("clear");
-            //     /**
-            //      * @brief Construct a new serialize object
-            //      *
-            //      */
-            //     serialize(head); // serialize at runtime whithout adding new user
-            //     break;
-            // }
+        case 3:
+        {
+            system("clear");
+            /**
+             * @brief Construct a new serialize object
+             *
+             */
+            serialize(head); // serialize at runtime whithout adding new user
+            break;
+        }
 
             // case 4:
             // {

@@ -30,8 +30,8 @@ typedef struct AdminUser // lista de usuário a manter o programa, irá talvez s
 AdminUser_t *insertMeio(AdminUser_t **head, char type[], int CodeID, float batery, float autonomia);
 void printList(AdminUser_t *head);
 // void ConfirmLogIN(AdminUser_t *head, char name[], int codename);
-// void serialize(AdminUser_t *head); // write name data to file
-// AdminUser_t *deserialize(AdminUser_t **head); // Read data from file, in dev.
+void serialize(AdminUser_t *head); // write name data to file
+AdminUser_t *deserialize(AdminUser_t **head); // Read data from file, in dev.
 void FreeMem(AdminUser_t **head);
 int existAdmin(AdminUser_t *head, int CodeID);
 // AdminUser_t *deleteUser(AdminUser_t *head, int codename);
