@@ -18,7 +18,7 @@
  * @param CodeID
  * @return int
  */
-int existAdmin(Meios_t *head, int CodeID)
+int existMeio(Meios_t *head, int CodeID)
 {
     while (head != NULL)
     {
@@ -45,7 +45,7 @@ Meios_t *insertMeio(Meios_t **head, char type[], int CodeID, float batery, float
     // setting up dynamic allocation
     Meios_t *newNode = (Meios_t *)malloc(sizeof(Meios_t));
 
-    if (!existAdmin(*head, CodeID))
+    if (!existMeio(*head, CodeID))
     {
         strcpy(newNode->type, type); // alloc the data dinamically here..
         newNode->CodeID = CodeID;
@@ -147,7 +147,7 @@ void printList(Meios_t *head) // Nao precisa mexer
  * @param head
  */
 void serialize(Meios_t *head) // no need to create as **head since we are not changing
-                                  // data from linked list, and we only need to serialize data to a file
+                              // data from linked list, and we only need to serialize data to a file
 {
     FILE *fp = fopen("list.txt", "w");
     if (fp == NULL)
@@ -308,36 +308,44 @@ void ModMeio(Meios_t **head, char *type, int CodeID, float batery, float autonom
     }
 }
 
+// funcao registar por aluguer
 void RegistoAluguelMeio(Meios_t *head, int CodeID)
 {
     Meios_t *temp = head;
-    if (temp == NULL)
-    {
-        printf("N achou nenhum meio com o ID, insira novo meio para poder registar");
-        return;
-    }
-    else if (temp->CodeID == CodeID)
-    {
-        temp->RegistoAlugado = 1;
-        return;//Lock out the function, do nothing else!!
-    }
-    else
+    if ((existMeio(head, CodeID)))
     {
 
-        while (temp != NULL)
+        if (temp == NULL)
         {
-            if (temp->CodeID == CodeID)
-            {
-                temp->RegistoAlugado = 1; // Setting to true now
-                // return 1;// experimental: same thing, but returning true here
+            printf("N achou nenhum meio com o ID, insira novo meio para poder registar");
+            return;
+        }
+        else if (temp->CodeID == CodeID)
+        {
+            temp->RegistoAlugado = 1;
+            return; // Lock out the function, do nothing else!!
+        }
+        else
+        {
 
-                printf("meio achado, registo feito");
+            while (temp != NULL)
+            {
+                if (temp->CodeID == CodeID)
+                {
+                    temp->RegistoAlugado = 1; // Setting to true now
+                    // return 1;// experimental: same thing, but returning true here
+
+                    printf("meio achado, registo feito");
+                }
+                temp = temp->next;
             }
-            temp = temp->next;
         }
     }
+    else
+        printf("inseriu codigo do meio correto?");
 }
 
+// Escrever os meios alugados na consola
 void PrintListaMeiosAlugados(Meios_t *head)
 {
     printf("printing the list of registered vehicles: ");
@@ -349,8 +357,45 @@ void PrintListaMeiosAlugados(Meios_t *head)
         {
             // printList(temp);
             printf("%s,%d,%.2f,%.2f", temp->type, temp->CodeID, temp->batery, temp->autonomia);
+            printf("\n");
         }
         temp = temp->next;
+    }
+}
+
+// Listagem dos meios em ordem decrescente de autonomia
+void PrintOrdemDecrescente(Meios_t *head)
+{
+    Meios_t *current = head, *index = NULL;
+    float tempSortData;
+    if (current == NULL)
+    {
+        printf("Lista encontra-se vazia");
+        return;
+    }
+    else
+    {
+        // for (size_t i < temp->autonomia[i]; i >= 0; i--)
+        // {
+
+        // }
+        while (current != NULL)
+        {
+            index = current->next;
+            while (index != NULL)
+            {
+                if (current->autonomia > index->autonomia)
+                {
+                    // primeiro fazer o update dos dados
+                    tempSortData = current->autonomia;
+                    current->autonomia = index->autonomia;
+                    index->autonomia = tempSortData;
+                    
+                    // seguinte será mover dentro da linked list
+                    // strncpy(temp)
+                }
+            }
+        }
     }
 }
 
