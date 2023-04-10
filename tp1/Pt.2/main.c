@@ -29,7 +29,7 @@ R: em principio serão todos linked lists
  */
 int main()
 {
-    AdminUser_t *head = NULL;
+    Meios_t *head = NULL;
 
     char tipo[50];
     int CodeID;
@@ -41,7 +41,7 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/10->sair]\n");
+        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/10->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
@@ -147,10 +147,31 @@ int main()
             break;
         }
 
+        case 6: // Registering meios
+        {
+            system("clear");
+            // head->RegistoAlugado = RegistoAluguelMeio(head, CodeID); // updating registo aqui!!
+            printf("insira um codigo/ID para fazer o registo :");
+            scanf("%d", &CodeID);
+            RegistoAluguelMeio(head, CodeID);
+            printf("\n");
+            printf("\n");
+            break;
+        }
+
+        case 7: // Ver Alugados
+        {
+            system("clear");
+            PrintListaMeiosAlugados(head);
+            printf("\n");
+            printf("\n");
+            break;
+        }
+
         case 10:
         {
             system("clear");
-            printf("\n");
+            printf("\n");//
             /**
              * @brief Construct a new Free Mem object
              *

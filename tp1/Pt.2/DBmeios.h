@@ -15,24 +15,27 @@
 
 // #include <stdbool.h>
 
-typedef struct AdminUser // lista de usuário a manter o programa, irá talvez ser melhorado
+typedef struct Meios // lista de usuário a manter o programa, irá talvez ser melhorado
                          // conforme o que o professor preferir
 {
-    int CodeID;
+    int CodeID, RegistoAlugado;
     char type[50];
     float batery, autonomia;
-    struct AdminUser *next;
-} AdminUser_t;
+    struct Meios *next;
+} Meios_t;
 
-//  AdminUser_t *head;
+//  Meios_t *head;
 // void generateNewList();
 
-AdminUser_t *insertMeio(AdminUser_t **head, char type[], int CodeID, float batery, float autonomia);
-void printList(AdminUser_t *head);
-// void ConfirmLogIN(AdminUser_t *head, char name[], int codename);
-void serialize(AdminUser_t *head); // write name data to file
-AdminUser_t *deserialize(AdminUser_t **head); // Read data from file, in dev.
-void FreeMem(AdminUser_t **head);
-int existAdmin(AdminUser_t *head, int CodeID);
-AdminUser_t *deleteMeio(AdminUser_t *head, int CodeID);
-void ModMeio(AdminUser_t **head, char *type, int CodeID, float batery, float autonomia);
+Meios_t *insertMeio(Meios_t **head, char type[], int CodeID, float batery, float autonomia);
+void printList(Meios_t *head);
+// void ConfirmLogIN(Meios_t *head, char name[], int codename);
+void serialize(Meios_t *head); // write name data to file
+Meios_t *deserialize(Meios_t **head); // Read data from file, in dev.
+void FreeMem(Meios_t **head);
+int existAdmin(Meios_t *head, int CodeID);
+Meios_t *deleteMeio(Meios_t *head, int CodeID);
+void ModMeio(Meios_t **head, char *type, int CodeID, float batery, float autonomia);
+void RegistoAluguelMeio(Meios_t *head, int CodeID);
+void PrintListaMeiosAlugados(Meios_t *head);
+
