@@ -408,7 +408,7 @@ void PrintListaMeiosAlugados(Meios_t *head)
  * que seria o ultimo no trocado
  * @param current, manter controlo do nodo atual
  * @param temp, nodo temporario/auxiliar para ajudar na troca de nos
- * @return Meios_t*
+ * @return head
  */
 Meios_t *PrintOrdemDecrescente(Meios_t *head)
 {
@@ -471,6 +471,8 @@ Meios_t *PrintOrdemDecrescente(Meios_t *head)
     } while (swapped);
     return head;
 }
+
+
 
 /**
  * @brief free the linked list pointer from memory in order to avoid leaks
