@@ -121,6 +121,7 @@ Student *sort_students_by_code_name(Student *head)
                 {
                     head = temp;
                 }
+                
                 else
                 {
                     Student *prev = head;
