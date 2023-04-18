@@ -364,39 +364,112 @@ void PrintListaMeiosAlugados(Meios_t *head)
 }
 
 // Listagem dos meios em ordem decrescente de autonomia
-void PrintOrdemDecrescente(Meios_t *head)
-{
-    Meios_t *current = head, *index = NULL;
-    float tempSortData;
-    if (current == NULL)
-    {
-        printf("Lista encontra-se vazia");
-        return;
-    }
-    else
-    {
-        // for (size_t i < temp->autonomia[i]; i >= 0; i--)
-        // {
+// void PrintOrdemDecrescente(Meios_t *head)
+// {
+//     Meios_t *current = head, *index = NULL;
+//     float tempSortData;
+//     if (current == NULL)
+//     {
+//         printf("Lista encontra-se vazia");
+//         return;
+//     }
+//     else
+//     {
+//         // for (size_t i < temp->autonomia[i]; i >= 0; i--)
+//         // {
 
-        // }
-        while (current != NULL)
+//         // }
+//         while (current != NULL)
+//         {
+//             index = current->next;
+//             while (index != NULL)
+//             {
+//                 if (current->autonomia > index->autonomia)
+//                 {
+//                     // primeiro fazer o update dos dados
+//                     tempSortData = current->autonomia;
+//                     current->autonomia = index->autonomia;
+//                     index->autonomia = tempSortData;
+
+//                     // seguinte será mover dentro da linked list
+//                     // strncpy(temp)
+//                 }
+//             }
+//         }
+//     }
+// }
+
+/**
+ * @brief Printar em ordem descrescente na lista
+ *
+ * @param head, inicio da lista
+ * @param swapped, variavel flag que ira confirmar a troca
+ * @param lptr, apontador de estado da lista, apenas ira ficar NULL e por fim guardar o valor de current
+ * que seria o ultimo no trocado
+ * @param current, manter controlo do nodo atual
+ * @param temp, nodo temporario/auxiliar para ajudar na troca de nos
+ * @return Meios_t*
+ */
+Meios_t *PrintOrdemDecrescente(Meios_t *head)
+{
+    int swapped;
+    Meios_t *current = head;
+    Meios_t *lptr = NULL;
+
+    if (head == NULL)
+        return head; // List is empty
+    // return;
+
+    /**
+     * @brief begin while loop process
+     *
+     */
+    do
+    {
+        swapped = 0;
+        current = head;
+
+        /**
+         * @brief start transversing the linked list
+         *
+         */
+        while (current->next != lptr) // while list is != NULL
         {
-            index = current->next;
-            while (index != NULL)
+            /**
+             * @brief begin the swap process
+             *
+             */
+            if (current->autonomia < current->next->autonomia) // autonomia is great than next->value
             {
-                if (current->autonomia > index->autonomia)
+                /**
+                 * @brief exanching node data
+                 *
+                 */
+                Meios_t *temp = current->next; // creates temp pointer and stores current->next, data
+                current->next = temp->next;    // stores temp->next to current->next
+                temp->next = current;          // now storing current data to temp->next
+                //----------------x-----------------
+                /**
+                 * @brief Construct a new if object, we will use this to update the linked list,
+                 * 
+                 */
+                if (current == head)
+                    head = temp;
+                else
                 {
-                    // primeiro fazer o update dos dados
-                    tempSortData = current->autonomia;
-                    current->autonomia = index->autonomia;
-                    index->autonomia = tempSortData;
-                    
-                    // seguinte será mover dentro da linked list
-                    // strncpy(temp)
+                    Meios_t *prev = head;
+                    while (prev->next != current)
+                        prev = prev->next;
+                    prev->next = temp;
                 }
+                current = temp;
+                swapped = 1;
             }
+            current = current->next;
         }
-    }
+        lptr = current;
+    } while (swapped);
+    return head;
 }
 
 /**

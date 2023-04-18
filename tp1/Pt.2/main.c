@@ -41,7 +41,7 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/10->sair]\n");
+        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/8->PrintOrdemDecrescente/10->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
@@ -168,10 +168,19 @@ int main()
             break;
         }
 
+        case 8:
+        {
+            system("clear");
+            head = PrintOrdemDecrescente(head);
+            // PrintOrdemDecrescente(head);
+            printf("\n");
+            printf("\n");
+            break;
+        }
         case 10:
         {
             system("clear");
-            printf("\n");//
+            printf("\n"); //
             /**
              * @brief Construct a new Free Mem object
              *

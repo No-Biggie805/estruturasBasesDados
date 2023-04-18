@@ -38,4 +38,5 @@ Meios_t *deleteMeio(Meios_t *head, int CodeID);
 void ModMeio(Meios_t **head, char *type, int CodeID, float batery, float autonomia);
 void RegistoAluguelMeio(Meios_t *head, int CodeID);
 void PrintListaMeiosAlugados(Meios_t *head);
+Meios_t *PrintOrdemDecrescente(Meios_t *head);
 
