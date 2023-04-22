@@ -451,7 +451,7 @@ Meios_t *PrintOrdemDecrescente(Meios_t *head)
                 //----------------x-----------------
                 /**
                  * @brief Construct a new if object, we will use this to update the linked list,
-                 * 
+                 *
                  */
                 if (current == head)
                     head = temp;

@@ -177,6 +177,8 @@ int main()
             printf("\n");
             break;
         }
+
+        
         case 10:
         {
             system("clear");
