@@ -12,12 +12,13 @@ int main()
     criarVertice(&g, "bc.def.ghi");                  // cria v2
     criarVertice(&g, "bc.def.hi");                   // cria v3
     criarAresta(g, "abc.def.ghi", "bc.def.ghi", 11); // cria a1(needs criarVertice Params to continue)
-                                                     //Parametros:
+                                                     // Parametros:
                                                      // g-> head
                                                      //"abc.def.ghi"-> vOrigem
                                                      //"bc.def.ghi"-> vDestino
                                                      // 11-> peso
-    criarAresta(g, "abc.def.ghi", "bc.def.hi", 1); // cria a2
+    criarAresta(g, "abc.def.ghi", "bc.def.hi", 1); // cria a2, muda destino
+    criarAresta(g, "abc.def.ghi", "abc.def.ghi", 3);
 
     //--------------------------------------x---------------------------------------------------------------------------------
     // inserir meios
