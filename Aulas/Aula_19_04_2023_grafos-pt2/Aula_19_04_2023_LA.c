@@ -1,3 +1,5 @@
+/*Adjacêntes em listas ligadas, código base + exemplo*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,7 +13,7 @@ typedef struct reg
 {
     int valor;
     struct reg *seguinte;
-} *Pilha;
+} Pilha;
 
 typedef struct registo
 {
@@ -19,18 +21,18 @@ typedef struct registo
     float peso; // peso da aresta permitindo transitar para o vértice
                 // adjacente
     struct registo *seguinte;
-} Lista, *Adjacentes;
+} Lista, Adjacentes;
 
 // Inserção de uma aresta no grafo 'Grafo' com origem em v1 e
 // destino em v2 e peso p
 // Devolve 1 em caso de sucesso ou 0 caso caso contrário
-int inserirAresta(Adjacentes Grafo[], int v1, int v2, float p)
+int inserirAresta(Adjacentes *Grafo[], int v1, int v2, float p)
 {
-    Adjacentes novo;
+    Adjacentes *novo;
     if ((v1 >= 0) && (v1 < VERTICES) && (v2 >= 0) && (v2 < VERTICES) &&
         (p >= 0))
     {
-        novo = (Adjacentes)malloc(sizeof(struct registo));
+        novo = (Adjacentes *)malloc(sizeof(struct registo));
         novo->id = v2;
         novo->peso = p;
         novo->seguinte = Grafo[v1];
@@ -41,10 +43,10 @@ int inserirAresta(Adjacentes Grafo[], int v1, int v2, float p)
         return (0);
 }
 
-void listar(Adjacentes Grafo[])
+void listar(Adjacentes *Grafo[])
 {
     int i;
-    Adjacentes aux;
+    Adjacentes *aux;
     for (i = 0; i < VERTICES; i++)
     {
         printf("Vertice %d: ", i);
@@ -58,17 +60,17 @@ void listar(Adjacentes Grafo[])
     }
 }
 
-void inicializarGrafo(Adjacentes Grafo[])
+void inicializarGrafo(Adjacentes *Grafo[])
 {
     int i;
     for (i = 0; i < VERTICES; i++)
         Grafo[i] = NULL;
 }
-
-// Adicionar no valor no topo da pilha 'pilha'
-Pilha push(Pilha pilha, int valor)
+/*funções suporte, push(), top(), pop()*/
+// Adicionar no valor no topo da pilha 'pilha', função oposta do pop()
+Pilha *push(Pilha *pilha, int valor)
 {
-    Pilha novo = (Pilha)malloc(sizeof(struct reg));
+    Pilha *novo = (Pilha *)malloc(sizeof(struct reg));
     if (novo != NULL)
     {
         novo->valor = valor;
@@ -79,19 +81,19 @@ Pilha push(Pilha pilha, int valor)
         return (pilha);
 }
 
-// Devolver o valor presente no topo da pilha 'pilha'
-int top(Pilha pilha)
+// Devolver o valor presente no topo da pilha 'pilha', o ultimo valor inserido, o mais recente
+int top(Pilha *pilha)
 {
     if (pilha != NULL)
-        return (pilha->valor);
+        return (pilha->valor); // retorna o valor ainda inteiro
     else
-        return (0);
+        return (0); // retorna zero, lista vazia
 }
 
-// Remover o valor presente no topo da pilha 'pilha'
-Pilha pop(Pilha pilha)
+// Remover o valor presente no topo da pilha 'pilha', função oposta do top()
+Pilha *pop(Pilha *pilha)
 {
-    Pilha aux;
+    Pilha *aux;
     if (pilha != NULL)
     {
         aux = pilha->seguinte;
@@ -104,7 +106,7 @@ Pilha pop(Pilha pilha)
 
 // Listagem pela ordem inversa do conteúdo da lista ligada referenciada
 // pelo parâmtero 'pilha'
-void listarPilha(Pilha pilha)
+void listarPilha(Pilha *pilha)
 {
     if (pilha != NULL)
     {
@@ -113,21 +115,28 @@ void listarPilha(Pilha pilha)
     }
 }
 
-// Determinar se a pilha 'pilha' está vazia
-int vazia(Pilha pilha)
+// Determinar se a pilha 'pilha' está vazia-->?????????
+int vazia(Pilha *pilha)
 {
-    return (pilha == NULL);
+    return (pilha == NULL); // devolver o valor lógico 1 ou 0(verdadeiro se 'NULL'/falso se '!=NULL')
+}
+
+//funcionalidade similar à funcção profundidade
+int largura(Adjacentes *Grafo[], int node)
+{
+
+
 }
 
 // Determinar a existência de um ciclo a partir do vértice 'nodo'
 // Travessia em profundidade do grafo 'Grafo' a partir do vértice 'nodo'
 // Devolve 1 se existir um ciclo a partir de 'nodo'
 // devolve 0 caso contrário
-int profundidade(Adjacentes Grafo[], int nodo)
+int profundidade(Adjacentes *Grafo[], int nodo)
 {
     int visitados[VERTICES], i, v;
-    Pilha s = NULL;
-    Adjacentes aux;
+    Pilha *s = NULL;
+    Adjacentes *aux;
     for (i = 0; i < VERTICES; i++)
         visitados[i] = 0; // 0 vértices não visitados
                           // 1 vértices visitados
@@ -138,8 +147,8 @@ int profundidade(Adjacentes Grafo[], int nodo)
             visitados[nodo] = 1;
             while (!vazia(s))
             {
-                v = top(s);
-                s = pop(s);
+                v = top(s); // Devolver o valor presente no topo da pilha
+                s = pop(s); // Remover o valor presente no topo da pilha
                 // printf("%d ", v);
                 aux = Grafo[v];
                 while (aux != NULL)
@@ -162,7 +171,7 @@ int profundidade(Adjacentes Grafo[], int nodo)
 // Existência de pelo menos um ciclo no grafo 'Grafo'
 // Devolve 1 se existir pelo menos um ciclo
 // devolve 0 caso contrário
-int ciclos(Adjacentes Grafo[])
+int ciclos(Adjacentes *Grafo[])
 {
     int i;
     for (i = 0; i < VERTICES; i++)
@@ -171,29 +180,30 @@ int ciclos(Adjacentes Grafo[])
     return (0);
 }
 
-void uniao(Adjacentes Grafo1[], Adjacentes Grafo2[], Adjacentes Grafoaux[])
+// perante 2 grafos, torna um 1 só
+void uniao(Adjacentes *Grafo1[], Adjacentes *Grafo2[], Adjacentes *Grafoaux[])
 {
-    Adjacentes aux1;
+    Adjacentes *aux1;
     for (int i = 0; i < VERTICES; i++)
     {
-        aux1 = Grafo1[i];
+        aux1 = Grafo1[i]; // percorrer grafo1
         while (aux1 != NULL)
         {
-            inserirAresta(Grafoaux, i, aux1->id, aux1->peso);
+            inserirAresta(Grafoaux, i, aux1->id, aux1->peso); // inserir aresta do grafo1, enquanto não for null
             aux1 = aux1->seguinte;
         }
-        aux1 = Grafo2[i];
+        aux1 = Grafo2[i]; // percorrer grafo2
         while (aux1 != NULL)
         {
-            inserirAresta(Grafoaux, i, aux1->id, aux1->peso);
+            inserirAresta(Grafoaux, i, aux1->id, aux1->peso); // inserir aresta do grafo2, enquanto não for null
             aux1 = aux1->seguinte;
         }
     }
 }
 
-void composicao(Adjacentes Grafo1[], Adjacentes Grafo2[], Adjacentes Grafoaux[])
+void composicao(Adjacentes *Grafo1[], Adjacentes *Grafo2[], Adjacentes *Grafoaux[])
 {
-    Adjacentes aux1, aux2;
+    Adjacentes *aux1, *aux2;
     for (int i = 0; i < VERTICES; i++)
     {
         aux1 = Grafo1[i]; // Lista dos vértices adjacentes
@@ -210,10 +220,10 @@ void composicao(Adjacentes Grafo1[], Adjacentes Grafo2[], Adjacentes Grafoaux[])
     }
 }
 
-void converter(Adjacentes Grafo[], float Matriz[][VERTICES])
+void converter(Adjacentes *Grafo[], float Matriz[][VERTICES])
 {
     int i, j;
-    Adjacentes aux;
+    Adjacentes *aux;
     for (i = 0; i < VERTICES; i++)
         for (j = 0; j < VERTICES; j++)
             Matriz[i][j] = 0;
@@ -234,10 +244,10 @@ void converter(Adjacentes Grafo[], float Matriz[][VERTICES])
     }
 }
 
-int existeCaminhoAux(Adjacentes G[], int origem, int destino, int visitados[])
+int existeCaminhoAux(Adjacentes *G[], int origem, int destino, int visitados[])
 {
     int res = 0;
-    Adjacentes aux;
+    Adjacentes *aux;
     if (origem == destino)
         return (1);
     else
@@ -254,7 +264,7 @@ int existeCaminhoAux(Adjacentes G[], int origem, int destino, int visitados[])
     }
 }
 
-int existeCaminho(Adjacentes G[], int origem, int destino)
+int existeCaminho(Adjacentes *G[], int origem, int destino)
 {
     int visitados[VERTICES], i;
     for (i = 0; i < VERTICES; i++)
@@ -267,18 +277,18 @@ int visitado(int sequencia[], int pos, int id)
 {
     int i;
     for (i = 0; i < pos; i++)
-        if (sequencia[i] == id)
+        if (sequencia[i] == id) // verificar se id está localizado no vertice
             return (1);
     return (0);
 }
 
 // Listar os caminhos existentes entre dois vértices passados
 // por parâmetro
-void listarCaminhosAux(Adjacentes G[], int origem, int destino,
+void listarCaminhosAux(Adjacentes *G[], int origem, int destino,
                        int sequencia[], int posicao, int pesoTotal)
 {
     int i;
-    Adjacentes aux;
+    Adjacentes *aux;
     sequencia[posicao] = origem;
     if (origem == destino)
     {
@@ -299,7 +309,7 @@ void listarCaminhosAux(Adjacentes G[], int origem, int destino,
     }
 }
 
-void listarCaminhos(Adjacentes G[], int origem, int destino)
+void listarCaminhos(Adjacentes *G[], int origem, int destino)
 {
     int sequencia[VERTICES];
     listarCaminhosAux(G, origem, destino, sequencia, 0, 0);
@@ -309,16 +319,16 @@ void listarCaminhos(Adjacentes G[], int origem, int destino)
 
 void main()
 {
-    Pilha p = NULL;
+    Pilha *p = NULL;
     float Matriz[VERTICES][VERTICES];
 
-    Adjacentes Grafo1[VERTICES]; // Lista de adjacência
+    Adjacentes *Grafo1[VERTICES]; // Lista de adjacência
     inicializarGrafo(Grafo1);
-    Adjacentes Grafo2[VERTICES]; // Lista de adjacência
+    Adjacentes *Grafo2[VERTICES]; // Lista de adjacência
     inicializarGrafo(Grafo2);
-    Adjacentes Grafo3[VERTICES]; // Lista de adjacência
+    Adjacentes *Grafo3[VERTICES]; // Lista de adjacência
     inicializarGrafo(Grafo3);
-    Adjacentes Grafo4[VERTICES]; // Lista de adjacência
+    Adjacentes *Grafo4[VERTICES]; // Lista de adjacência
     inicializarGrafo(Grafo4);
 
     inserirAresta(Grafo1, 1, 3, 10); // Inserção da aresta com origem
