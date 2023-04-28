@@ -1,3 +1,8 @@
+/*Matriz de adjacências, código base..
+ex:
+
+
+*/
 #include <stdio.h>
 #define INFINITY 9999
 #define MAX 10
