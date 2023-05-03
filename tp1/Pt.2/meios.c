@@ -104,7 +104,6 @@ int criarVertice(Grafo_t **head, char V[])
         printf("Vertice Existe");
         return -1;
     }
-    
 }
 
 // funcao verificar se vertice existe, parecido com exiteMeio.
@@ -121,6 +120,33 @@ int existeVertice(Grafo_t *head, char V[])
     }
     return 0; // vertice does not exist
 }
+
+//WIP
+// int criarEdge(Grafo_t *head, char vOrigem[], char vDestino[], float peso)
+// {
+//     Adjacentes_t *newNode = (Adjacentes_t *)malloc(sizeof(Adjacentes_t));
+//     if (existeVertice(head, vOrigem) && existeVertice(head, vDestino))
+//     {
+//         while (strcmp(head->vertice, vOrigem) != 0) // enquanto origem for diferente do vertice
+//         {
+//             head = head->next;
+//         }
+//         if (newNode != NULL) // se novo for !=Null
+//         {                    // criar novo edge/adjacente
+//             strcpy(newNode->vertice, vDestino);
+//             newNode->peso = peso;
+//             newNode->next = head->edge;
+//             head->next = newNode;
+//             return 1;
+//         }
+//         else
+//             return 0;
+//     }
+//     else
+//         return 0;
+// }
+//WIP
+
 
 // /**
 //  * @brief procedure to do confirm the user login
