@@ -30,6 +30,7 @@ R: em principio serão todos linked lists
 int main()
 {
     Meios_t *head = NULL;
+    Grafo_t *headGraph = NULL;
 
     char tipo[50];
     int CodeID;
@@ -41,7 +42,7 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/8->PrintOrdemDecrescente/10->sair]\n");
+        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/8->PrintOrdemDecrescente/9->AddVertice/10->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
@@ -85,6 +86,7 @@ int main()
             printf("\n");
             break;
         }
+
         case 1:
         {
             system("clear");
@@ -95,6 +97,7 @@ int main()
             printList(head);
             break;
         }
+
         case 2: // Read files data
         {
             system("clear");
@@ -178,7 +181,19 @@ int main()
             break;
         }
 
-        
+        // Funcao temporaria criar vertice, nao funciona by default..
+        case 9:
+        {
+            system("clear");
+            int valor = criarVertice(&headGraph, "abc.def.ghi");
+            printf("retorno vertice: %d", valor);
+            valor = criarVertice(&headGraph, "abc.def.ghi");
+            printf("retorno vertice: %d", valor);
+            printf("\n");
+            printf("\n");
+            break;
+        }
+
         case 10:
         {
             system("clear");

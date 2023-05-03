@@ -21,7 +21,7 @@ typedef struct registo2
 typedef struct registo1
 {
   char vertice[TAM]; // geocódigo what3words
-  Adjacente *adjacentes;
+  Adjacente *adjacentes;//Aponntado Acesso a linked list Adjacentes,com acesso a vertices e peso
   Meios *meios; // Lista ligada com os códigos dos meios de transporte existente
                // neste geocódigo
   struct registo1 *seguinte;

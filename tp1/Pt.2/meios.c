@@ -80,6 +80,48 @@ Meios_t *insertMeio(Meios_t **head, char type[], int CodeID, float batery, float
     // colocar função criar nova lista se for vazio??(ver codigo do trabalho do 1ºano, no replit)
 }
 
+// Funcao criar vertice: o vertice neste significa um ponto na rua.
+int criarVertice(Grafo_t **head, char V[])
+{
+    Grafo_t *newNode = (Grafo_t *)malloc(sizeof(Grafo_t));
+    if (!existeVertice(*head, V))
+    {
+        if (newNode != NULL)
+        {
+            strcpy(newNode->vertice, V);
+            newNode->meios = NULL;
+            newNode->next = *head;
+            *head = newNode;
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        printf("Vertice Existe");
+        return -1;
+    }
+    
+}
+
+// funcao verificar se vertice existe, parecido com exiteMeio.
+int existeVertice(Grafo_t *head, char V[])
+{
+    // Grafo_t *temp ;
+    while (head != NULL)
+    {
+        if (strcmp(head->vertice, V) == 0)
+        {
+            return 1; // vertice exists
+        }
+        head = head->next;
+    }
+    return 0; // vertice does not exist
+}
+
 // /**
 //  * @brief procedure to do confirm the user login
 //  *
@@ -471,8 +513,6 @@ Meios_t *PrintOrdemDecrescente(Meios_t *head)
     } while (swapped);
     return head;
 }
-
-
 
 /**
  * @brief free the linked list pointer from memory in order to avoid leaks

@@ -14,6 +14,7 @@
 #include <string.h>
 
 // #include <stdbool.h>
+#define TAM 50
 
 typedef struct Meios // lista de usuário a manter o programa, irá talvez ser melhorado
                          // conforme o que o professor preferir
@@ -23,6 +24,15 @@ typedef struct Meios // lista de usuário a manter o programa, irá talvez ser m
     float batery, autonomia;
     struct Meios *next;
 } Meios_t;
+
+typedef struct registo1 //Main acesso gestao vertices.
+{
+    char vertice[TAM]; //array de vertices
+    Meios_t *meios;
+    struct registo1 *next; //ficar next1 para n confundir com o main
+
+}Grafo_t;
+
 
 //  Meios_t *head;
 // void generateNewList();
@@ -40,3 +50,7 @@ void RegistoAluguelMeio(Meios_t *head, int CodeID);
 void PrintListaMeiosAlugados(Meios_t *head);
 Meios_t *PrintOrdemDecrescente(Meios_t *head);
 
+/*Graph implementation section,(WIP), will need to checkout what which one does what..*/
+int existeVertice(Grafo_t *head, char V[]);
+int criarVertice(Grafo_t **head, char V[]);
+// int criarEdge(Grafo_t *g, char)

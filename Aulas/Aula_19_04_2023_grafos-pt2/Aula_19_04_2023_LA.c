@@ -121,11 +121,42 @@ int vazia(Pilha *pilha)
     return (pilha == NULL); // devolver o valor lógico 1 ou 0(verdadeiro se 'NULL'/falso se '!=NULL')
 }
 
-//funcionalidade similar à funcção profundidade
+// funcionalidade similar à funcção profundidade
 int largura(Adjacentes *Grafo[], int node)
 {
+    int visitados[VERTICES], i, v, count = 0;
+    Pilha *fila = NULL;
+    Adjacentes *aux;
+    // Pilha *aux;
 
+    for (i = 0; i < VERTICES; i++)
+        visitados[i] = 0; //
+    if (visitados[node] == 0)
+    {
+        fila = push(fila, node);
+        visitados[node] = 1;
+        while (!vazia(fila)) // enquanto lista nao estiver vazia..
+        {
+            v = top(fila);    // receber o parametro devolvido
+            printf("%d", v);  // escrever valor na consola "pilha->valor"
+            fila = pop(fila); // receber valor presente no topo
+            count++;
+            aux = Grafo[v];
+            while (aux != NULL)
+            {
+                if (node == aux->id)
+                    return (1);
+                if (visitados[aux->id] == 0)
+                {
+                    fila = push(fila, aux->id);
+                    visitados[aux->id] = 1;
+                }
+                aux = aux->seguinte;
+            }
+        }
+    }
 
+    return count;
 }
 
 // Determinar a existência de um ciclo a partir do vértice 'nodo'
