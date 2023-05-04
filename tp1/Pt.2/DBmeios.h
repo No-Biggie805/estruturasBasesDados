@@ -63,3 +63,7 @@ int criarVertice(Grafo_t **head, char V[]);
 //WIP
 // int criarEdge(Grafo_t *head, char vOrigem[], char vDestino[], float peso);
 //WIP
+
+//Experimental implementation, adding function as procedure:
+void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso);
+void listarEdges(Grafo_t *head, char vertice[]);

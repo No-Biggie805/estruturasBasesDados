@@ -42,7 +42,7 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/8->PrintOrdemDecrescente/9->AddVertice/10->sair]\n");
+        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/8->PrintOrdemDecrescente/9->AddVertice/10->AddEdge/11->ListarEdges/20->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
@@ -193,8 +193,26 @@ int main()
             printf("\n");
             break;
         }
-
         case 10:
+        {
+            system("clear");
+            criarEdge(&head, "abc.def.ghi", "jkl.mno.pqr", 11);
+            printf("\n");
+            printf("\n");
+            break;
+        }
+
+        case 11:
+        {
+            system("clear");
+            listarEdges(head, "abc.def.ghi");
+            printf("\n");
+            printf("\n");
+
+            break;
+        }
+
+        case 20:
         {
             system("clear");
             printf("\n"); //
