@@ -42,7 +42,9 @@ int main()
     {
 
         // system("clear");
-        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/8->PrintOrdemDecrescente/9->AddVertice/10->AddEdge/11->ListarEdges/20->sair]\n");
+        printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio");
+        printf("/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/8->PrintOrdemDecrescente/");
+        printf("9->AddVertice/10->AddEdge/11->ListarEdges/12->AddMeios_Geocode/13->listarMeios_Geocode/20->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
@@ -69,9 +71,6 @@ int main()
              *
              */
             head = insertMeio(&head, tipo, CodeID, bateria, autonomia);
-            // newUser = EnterUser(name, password); //to enter new user
-            // newUser->next = head;
-            // head = newUser;
 
             // /**
             //  * @brief Construct a new Confirm Log I N object
@@ -185,18 +184,33 @@ int main()
         case 9:
         {
             system("clear");
-            int valor = criarVertice(&headGraph, "abc.def.ghi");
-            printf("retorno vertice: %d", valor);
-            valor = criarVertice(&headGraph, "abc.def.ghi");
-            printf("retorno vertice: %d", valor);
+            // int valor = criarVertice(&headGraph, "abc.def.ghi");
+            // printf("retorno vertice: %d", valor);
+            // valor = criarVertice(&headGraph, "abc.def.ghi");
+            // printf("retorno vertice: %d", valor);
+            criarVertice(&headGraph, "abc.def.ghi"); // cria v1, em teoria passamos o apontador da lista(g)
+                                                     // e o vertice que no caso sera um sitio na cidade
+            criarVertice(&headGraph, "bc.def.ghi");  // cria v2
+            criarVertice(&headGraph, "bc.def.hi");   // cria v3
             printf("\n");
             printf("\n");
             break;
         }
+            // Experimental---------X-------------
+
         case 10:
         {
             system("clear");
-            criarEdge(&head, "abc.def.ghi", "jkl.mno.pqr", 11);
+            // criarEdge(headGraph, "abc.def.ghi", "jkl.mno.pqr", 11);
+            criarEdge(&headGraph, "abc.def.ghi", "bc.def.ghi", 11); // cria a1(needs criarVertice Params to continue)
+                                                                    // o que e?-Aresta e a coneccao de um vertice ao outro
+                                                                    // Parametros:
+                                                                    // g-> head
+                                                                    //"abc.def.ghi"-> vOrigem
+                                                                    //"bc.def.ghi"-> vDestino
+                                                                    // 11-> peso, extra dado, julgo..
+            criarEdge(&headGraph, "abc.def.ghi", "bc.def.hi", 1);   // cria a2, muda destino
+            criarEdge(&headGraph, "abc.def.ghi", "abc.def.ghi", 3);
             printf("\n");
             printf("\n");
             break;
@@ -205,13 +219,38 @@ int main()
         case 11:
         {
             system("clear");
-            listarEdges(head, "abc.def.ghi");
+            printf("Vertices adjacentes a abc.def.ghi\n");
+            listarEdges(headGraph, "abc.def.ghi");
             printf("\n");
             printf("\n");
 
             break;
         }
-
+            // Adicionar meios por geocodigo.
+        case 12:
+        {
+            system("clear");
+            printf("adicionar meios por geocodigo..");
+            inserirMeio_GeoCode(headGraph, "abc.def.ghi", 1);
+            inserirMeio_GeoCode(headGraph, "abc.def.ghi", 2);
+            inserirMeio_GeoCode(headGraph, "bc.def.ghi", 3);
+            printf("\nfeito");
+            printf("\n");
+            printf("\n");
+            break;
+        }
+        // listar meios por geocodigo
+        case 13:
+        {
+            system("clear");
+            printf("funcao listar meios por geocodigo");
+            printf("\n");
+            printf("\n");
+            listMeios_Geocode(headGraph, "abc.def.ghi");
+            printf("\n");
+            printf("\n");
+            break;
+        }
         case 20:
         {
             system("clear");

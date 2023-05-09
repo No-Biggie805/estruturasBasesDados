@@ -25,20 +25,20 @@ typedef struct Meios // lista de usuário a manter o programa, irá talvez ser m
     struct Meios *next;
 } Meios_t;
 
-typedef struct registo1 // Main acesso gestao vertices.
-{
-    char vertice[TAM]; // array de vertices
-    Meios_t *meios;
-    struct registo1 *next; // ficar next1 para n confundir com o main
-    Adjacentes_t *edge;
-} Grafo_t;
-
 typedef struct registo2
 {
     char vertice[TAM];
     float peso;
     struct registo2 *next;
 } Adjacentes_t;
+
+typedef struct registo1 // Main acesso gestao vertices.
+{
+    char vertice[TAM]; // array de vertices
+    Meios_t *meios;
+    struct registo1 *next; // ficar next1 para n confundir com o main
+    Adjacentes_t *adjacents;
+} Grafo_t;
 
 //  Meios_t *head;
 // void generateNewList();
@@ -59,11 +59,12 @@ Meios_t *PrintOrdemDecrescente(Meios_t *head);
 /*Graph implementation section,(WIP), will need to checkout what which one does what..*/
 int existeVertice(Grafo_t *head, char V[]);
 int criarVertice(Grafo_t **head, char V[]);
-
-//WIP
 // int criarEdge(Grafo_t *head, char vOrigem[], char vDestino[], float peso);
-//WIP
-
 //Experimental implementation, adding function as procedure:
-void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso);
+void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso);//upstream, dk if it will have issues though >P
 void listarEdges(Grafo_t *head, char vertice[]);
+
+//WIP, research on adding meios functions..
+void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID);
+void listMeios_Geocode(Grafo_t *head, char geocodigo[]);
+
