@@ -49,7 +49,7 @@ void printList(Meios_t *head);
 void serialize(Meios_t *head);        // write name data to file
 Meios_t *deserialize(Meios_t **head); // Read data from file, in dev.
 void FreeMem(Meios_t **head);
-int existAdmin(Meios_t *head, int CodeID);
+// int existAdmin(Meios_t *head, int CodeID);
 Meios_t *deleteMeio(Meios_t *head, int CodeID);
 void ModMeio(Meios_t **head, char *type, int CodeID, float batery, float autonomia);
 void RegistoAluguelMeio(Meios_t *head, int CodeID);
