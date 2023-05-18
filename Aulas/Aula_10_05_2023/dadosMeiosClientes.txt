@@ -1,0 +1,5 @@
+0;crewcut.condense.perceive;111;112;113;500;0
+1;deregulated.stress.oval;0;0;0;501;0
+2;spied.contract.bounded;200;0;0;503;0
+3;slider.condors.roughness;300;0;0;0;0
+
