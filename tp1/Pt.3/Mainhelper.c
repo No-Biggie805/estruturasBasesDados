@@ -1,33 +1,7 @@
-/*Questões a fazer ao professor sobre o trabalho:
-1->Qual  será a estrutura base do programa ao desenvolver sem inclusão dos dados da lista?
-e.g:quesão do registo do utilizador
-R:serão listas do Cliente, gestor e mobilidade
+#include "DB.h"
 
-2->Como irá depois ser feito o funcionamento do antes e depois de implementar as linked lists?
-e.g:questões da gestão de dados quais poderão ser numa
-estrutura base e os que serão para linked list?
-
-R: em principio serão todos linked lists
-*/
-
-/**
- * @file main.c
- * @author Jose Santos(a18605@alunos.ipca.pt)
- * @brief ficheiro main, contem o menu que ira conter as seguintes funcoes
- * @version 0.1
- * @date 2023-03-19
- *
- * @copyright Copyright (c) 2023
- *
- */
-
-#include "DBmeios.h"
-
-/**
- * @brief main function, contains the following functions
- * @return int
- */
-int main()
+/*Launching as a seperate block*/
+void LoopMeiosProcedure()
 {
     Meios_t *head = NULL;
     Grafo_t *headGraph = NULL;
@@ -36,8 +10,9 @@ int main()
     int CodeID;
     float bateria, autonomia;
 
-    int opcao; //, tipo_user;
+    int opcao; // tipo_user;
 
+    /*PERHAPS SHOULD BE SEPERATE*/
     while (1)
     {
 
@@ -81,7 +56,7 @@ int main()
             //  * @brief Construct a new serialize object
             //  *
             //  */
-            // serialize(head); // call for serialize funtion
+            // serialize_Meios(head); // call for serialize funtion
             printf("\n");
             break;
         }
@@ -93,7 +68,7 @@ int main()
              * @brief Construct a new print List object
              *
              */
-            printList(head);
+            printList_Meios(head);
             break;
         }
 
@@ -104,7 +79,7 @@ int main()
              * @brief Construct a new deserialize object
              *
              */
-            deserialize(&head);
+            deserialize_Meios(&head);
             break;
         }
 
@@ -115,7 +90,7 @@ int main()
              * @brief Construct a new serialize object
              *
              */
-            serialize(head); // serialize at runtime whithout adding new user
+            serialize_Meios(head); // serialize at runtime whithout adding new user
             break;
         }
 
@@ -260,9 +235,9 @@ int main()
              * @brief Construct a new Free Mem object
              *
              */
-            FreeMem(&head); // funcção liberar apontadores à memoria
+            FreeMem_Meios(&head); // funcção liberar apontadores à memoria
             printf("-->saiu do programa\n");
-            return 0;
+            return;
             break;
         } // end of case 1
 
@@ -275,6 +250,4 @@ int main()
             printf("Error:Invalid Option");
         }
     }
-
-    return 0;
 }

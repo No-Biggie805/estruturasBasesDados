@@ -2,6 +2,9 @@
     "cmake.configureOnOpen": false,
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
-        "dbheader.h": "c"
-    }
+        "dbheader.h": "c",
+        "source_location": "c",
+        "ll.h": "c"
+    },
+    "doki.sticker.path": "/home/asuna/Pictures/Sauna.png"
 }

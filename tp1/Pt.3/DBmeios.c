@@ -9,7 +9,7 @@
  *
  */
 
-#include "DBmeios.h"
+#include "DB.h"
 
 /**
  * @brief Checks if "vehicle" exists.
@@ -324,7 +324,7 @@ void listMeios_Geocode(Grafo_t *head, char geocodigo[])
  *
  * @param head
  */
-void printList(Meios_t *head) // Nao precisa mexer
+void printList_Meios(Meios_t *head) // Nao precisa mexer
 {
 
     // Meios_t *temporary = head;
@@ -357,7 +357,7 @@ void printList(Meios_t *head) // Nao precisa mexer
  *
  * @param head
  */
-void serialize(Meios_t *head) // no need to create as **head since we are not changing
+void serialize_Meios(Meios_t *head) // no need to create as **head since we are not changing
                               // data from linked list, and we only need to serialize data to a file
 {
     FILE *fp = fopen("list.txt", "w");
@@ -381,7 +381,7 @@ void serialize(Meios_t *head) // no need to create as **head since we are not ch
  * @param head
  * @return Meios_t*
  */
-Meios_t *deserialize(Meios_t **head)
+Meios_t *deserialize_Meios(Meios_t **head)
 {
     FILE *fp = fopen("list.txt", "r");
     // Meios_t *temp = NULL;
@@ -688,7 +688,7 @@ Meios_t *PrintOrdemDecrescente(Meios_t *head)
  *
  * @param head
  */
-void FreeMem(Meios_t **head)
+void FreeMem_Meios(Meios_t **head)
 {
     printf("\nFunção Liberar, a executar..");
     Meios_t *newNode = *head;

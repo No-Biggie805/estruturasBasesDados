@@ -66,7 +66,6 @@ void listarAdjacentes(Grafo *g, char vertice[])
   {
     while (strcmp(g->vertice, vertice) != 0) // while remote vertice != local vertice
       g = g->seguinte;                       // tranverse L-list
-    aux = g->adjacentes;                     // when loop is done, if found, equals aux to g->adjacentes
     //g->adjacentes constains data such as peso  
     while (aux != NULL)
     {
