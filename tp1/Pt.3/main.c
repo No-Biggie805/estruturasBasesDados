@@ -27,9 +27,127 @@ R: em principio serão todos linked lists
  * @brief main function, contains the following functions
  * @return int
  */
+
+void adminMenu()
+{
+    printf("\nAdmin Menu:\n");
+    printf("1. Manage gestor list\n");
+    printf("2. Manage meios list\n");
+    printf("3. Exit to main menu\n");
+    printf("Enter your choice: ");
+}
+
+int InvalidLogin(AdminUser_t *head, char *gestor, int codename)
+{
+    AdminUser_t *temp = head;
+    while (temp != NULL)
+    {
+        if (strcmp(temp->name, gestor) == 0 && codename == temp->codename)
+        {
+            // ConfirmLogIN(head, gestor, codename); // Confirmar qual o utilizdor.
+            return 1;
+        }
+        temp = temp->next;
+    }
+    return 0;
+}
+
 int main()
 {
+    /*
+    Gestor: tera acesso a alterar dados: veiculo, gestor e cliente.
+    cliente: Podera em principio so poder mexer nos seus dados e consultar meios..
+    */
+    AdminUser_t *headAdmins = NULL;
+    Clientes_t *headCliente = NULL;
+    Meios_t *headMeios = NULL;
+    Grafo_t *headGrafo = NULL;
 
-    LoopMeiosProcedure();
+    int tipo = 0;
+    int codename;
+    char gestor[15]; // TAM = 50, do DB.h
+
+    // // redundante, mas menos confuso..
+    // int ID;
+    // char Cliente[15];
+
+    int exitProgram = 0; // Flag to determine whether to exit the program
+    int opcao;
+    int continua = 1;
+    // Pre-execution, data serialization:
+    deserialize_Admins(&headAdmins);
+    deserialize_Cliente(&headCliente);
+
+    while (continua) // enquanto continua = 1
+    {
+        exitProgram = 0;
+        // Summiting Admin blocks
+        printf("Prompt User/Admin,");
+        printf("Qual e o seu tipo de utilizador: ");
+        scanf("%d", &tipo);
+        if (tipo == 1) // Gestor
+        {
+            printf("Insira o nome do gestor:");
+            scanf("%s", gestor);
+            printf("insira id do gestor: ");
+            scanf("%d", &codename);
+
+            // WIP:insert login
+            if (!InvalidLogin(headAdmins, gestor, codename))
+            {
+                printf("Invalid Login, Exiting to main menu.");
+                exitProgram = 1;
+            }
+
+            while (!exitProgram)
+            {
+                printf("\nO que deseja fazer?\n");
+                adminMenu();
+                scanf("%d", &opcao);
+                switch (opcao)
+                {
+                case 1: // Entering admin menu
+                {
+                    LoopAdminsProcedure(headAdmins); // gerir dados do gestor
+                    break;
+                }
+                case 2: // Entering meios menu
+                {
+                    // WIP
+                    LoopMeiosProcedure(headMeios, headGrafo);
+                    break;
+                }
+                case 3:
+                {
+                    system("clear");
+                    printf("Returning to the main menu\n");
+                    exitProgram = 1;
+                    break;
+                }
+
+                default:
+                    system("clear");
+                    printf("Error:Invalid Option");
+                    break;
+                }
+            }
+        }
+        // else if (tipo == 2)
+        // {
+        //     printf("Insira o nome do gestor:");
+        //     scanf("%s", Cliente);
+        //     printf("insira id do gestor: ");
+        //     scanf("%d", &ID);
+        // }
+        printf("deseja continuar?");
+        scanf("%d", &continua);
+        if (!continua)
+            printf("a sair do main menu\n");
+    }
+    // LoopAdminsProcedure(head);
+
+    // Summiting meios blocks
+    // LoopMeiosProcedure();
+    printf("a sair do programa..");
     return 0;
 }

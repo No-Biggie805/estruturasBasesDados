@@ -27,6 +27,15 @@ typedef struct AdminUser // lista de usuário a manter o programa, irá talvez s
 } AdminUser_t;
 /*Fim estrutura dos gestores*/
 
+typedef struct Clientes // lista de usuário a manter o programa, irá talvez ser melhorado
+                         // conforme o que o professor preferir
+{
+    char name[15], password[12];
+    int ID;
+    // char *name, *password;
+    struct Clientes *next;
+} Clientes_t;
+
 /*Estruturas para os meios*/
 typedef struct Meios // lista de usuário a manter o programa, irá talvez ser melhorado
                      // conforme o que o professor preferir
@@ -54,7 +63,9 @@ typedef struct registo1 // Main acesso gestao vertices.
 /*Fim de estruturacao dos meios..*/
 
 /*helper functions list*/
-void LoopMeiosProcedure();
+void LoopMeiosProcedure(Meios_t *head, Grafo_t *headGraph);
+void LoopAdminsProcedure(AdminUser_t *head);
+void LoopClientesProcedure(Clientes_t *head);
 /*end of helper list*/
 
 
@@ -70,15 +81,24 @@ AdminUser_t *deleteUser(AdminUser_t *head, int codename);
 void ModUser(AdminUser_t **head, int codename, char *name, char *password);
 /*Fim lista funcoes dos gestores*/
 
+/*Lista invocar funcoes dos clientes*/
+Clientes_t *EnterCliente(Clientes_t **head, char name[], char password[], int ID); 
+void printList_Clientes(Clientes_t *head); 
+int existCliente(Clientes_t *head, int ID);
+void ConfirmLoginCliente(Clientes_t *head, char name[], int ID);
+void serialize_Clientes(Clientes_t *head);
+Clientes_t *deserialize_Cliente(Clientes_t **head);
+Clientes_t *deleteClientes(Clientes_t *head, int ID);
+void ModCliente(Clientes_t **head, int ID, char *name, char *password);
+void FreeMem_Clientes(Clientes_t **head);
+/*Fim Lista funcoes dos clientes*/
 
 /*Lista invocar das funcoes para implementacao dos meios*/
 Meios_t *insertMeio(Meios_t **head, char type[], int CodeID, float batery, float autonomia);
 void printList_Meios(Meios_t *head);
-// void ConfirmLogIN(Meios_t *head, char name[], int codename);
 void serialize_Meios(Meios_t *head);        // write name data to file
 Meios_t *deserialize_Meios(Meios_t **head); // Read data from file, in dev.
 void FreeMem_Meios(Meios_t **head);
-// int existAdmin(Meios_t *head, int CodeID);
 Meios_t *deleteMeio(Meios_t *head, int CodeID);
 void ModMeio(Meios_t **head, char *type, int CodeID, float batery, float autonomia);
 void RegistoAluguelMeio(Meios_t *head, int CodeID);

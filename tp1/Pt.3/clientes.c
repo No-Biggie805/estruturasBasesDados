@@ -11,23 +11,18 @@
 
 #include "DB.h"
 
-// void generateNewList()
-// {
-//     head = NULL;
-// }
-
 /**
  * @brief Checks if "gestor" exists.
  *
  * @param head
- * @param codename
+ * @param ID
  * @return int
  */
-int existAdmin(AdminUser_t *head, int codename)
+int existCliente(Clientes_t *head, int ID)
 {
     while (head != NULL)
     {
-        if (head->codename == codename)
+        if (head->ID == ID)
             return 1;
         head = head->next;
     }
@@ -41,19 +36,19 @@ int existAdmin(AdminUser_t *head, int codename)
  * @param head
  * @param name
  * @param password
- * @param codename
+ * @param ID
  * @return AdminUser_t* //returning as newNode pointing to linked list
  */
-AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[], int codename) // adicionar codename
+Clientes_t *EnterCliente(Clientes_t **head, char name[], char password[], int ID) // adicionar ID
 {
     // setting up dynamic allocation
-    AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
+    Clientes_t *newNode = (Clientes_t *)malloc(sizeof(Clientes_t));
 
-    if (!existAdmin(*head, codename))
+    if (!existCliente(*head, ID))
     {
         strcpy(newNode->name, name); // alloc the data dinamically here..
         strcpy(newNode->password, password);
-        newNode->codename = codename;
+        newNode->ID = ID;
 
         newNode->next = NULL; // consider next as the last of the list
 
@@ -87,19 +82,19 @@ AdminUser_t *EnterUser(AdminUser_t **head, char name[], char password[], int cod
  *
  * @param head
  * @param name
- * @param codename
+ * @param ID
  */
-void ConfirmLogIN(AdminUser_t *head, char name[], int codename)
+void ConfirmLoginCliente(Clientes_t *head, char name[], int ID)
 {
     // dinamic allocation:experimental
     // AdminUser_t *temp = (AdminUser_t *)malloc(sizeof(AdminUser_t)); // setting up the allocation member pointer which will contain the data of the struct
 
-    AdminUser_t *temp = head;
+    Clientes_t *temp = head;
 
     if (strcmp(temp->name, name) == 0) // checking our respectfull user
     {
-        if (temp->codename == codename) // checking our respectfull password
-        {                               // trocar talvez para codename
+        if (temp->ID == ID) // checking our respectfull password
+        {                               // trocar talvez para ID
             printf("\nUser verification: 'experimental'\n");
             printf("\nWelcome dear User:as menber:%s,as local:%s", name, temp->name);
         }
@@ -115,7 +110,7 @@ void ConfirmLogIN(AdminUser_t *head, char name[], int codename)
  *
  * @param head
  */
-void printList_Admins(AdminUser_t *head) // Nao precisa mexer
+void printList_Clientes(Clientes_t *head) // Nao precisa mexer
 {
 
     // AdminUser_t *temporary = head;
@@ -130,7 +125,7 @@ void printList_Admins(AdminUser_t *head) // Nao precisa mexer
         while (head != NULL) // enquanto não terminar a nossa lista..
         {
             printf("printing name: %s", head->name); // excrever por nome na consola
-            printf("\tprinting the codename: %d", head->codename);
+            printf("\tprinting the ID: %d", head->ID);
             printf("\n----------x------------\n");
             // getchar();
             head = head->next; // avança nodo seguinte
@@ -146,8 +141,8 @@ void printList_Admins(AdminUser_t *head) // Nao precisa mexer
  *
  * @param head
  */
-void serialize_Admins(AdminUser_t *head) // no need to create as **head since we are not changing
-                                  // data from linked list, and we only need to serialize data to a file
+void serialize_Clientes(Clientes_t *head) // no need to create as **head since we are not changing
+                                          // data from linked list, and we only need to serialize data to a file
 {
     FILE *fp = fopen("AdminList.txt", "w");
     if (fp == NULL)
@@ -156,10 +151,10 @@ void serialize_Admins(AdminUser_t *head) // no need to create as **head since we
         // exit(1);
         return;
     }
-    AdminUser_t *temp = head;
+    Clientes_t *temp = head;
     for (temp = head; temp != NULL; temp = temp->next)
     {
-        fprintf(fp, "%s|%s|%d\n", temp->name, temp->password, temp->codename); // adicionar codename
+        fprintf(fp, "%s|%s|%d\n", temp->name, temp->password, temp->ID); // adicionar ID
     }
     fclose(fp);
 }
@@ -170,20 +165,18 @@ void serialize_Admins(AdminUser_t *head) // no need to create as **head since we
  * @param head
  * @return AdminUser_t*
  */
-AdminUser_t *deserialize_Admins(AdminUser_t **head)
+Clientes_t *deserialize_Cliente(Clientes_t **head)
 {
     FILE *fp = fopen("AdminList.txt", "r");
-    // AdminUser_t *temp = NULL;
     char name[15], password[15];
-    int codename;
-    // AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
+    int ID;
     if (fp == NULL) // yes, this works
     {
         return NULL; // or return if void ??
     }
     else if (fp != NULL)
     {
-        while (fscanf(fp, "%[^|]|%[^|]|%d\n", name, password, &codename) != EOF) // scanning while it has not reached the E.O.F.
+        while (fscanf(fp, "%[^|]|%[^|]|%d\n", name, password, &ID) != EOF) // scanning while it has not reached the E.O.F.
         {
             if (head == NULL)
             {
@@ -191,16 +184,7 @@ AdminUser_t *deserialize_Admins(AdminUser_t **head)
             }
             else
             {
-                // fscanf(fp, "%[^|]|%[^|]|\n", name, password);
-                // submiting to linked list inside of head
-
-                // adicionar codename
-                *head = EnterUser(&(*head), name, password, codename); // experimental, its werks yay
-
-                // strcpy(newNode->name, name);
-                // strcpy(newNode->password, password);
-                // newNode->next = *head;
-                // *head = newNode;}
+                *head = EnterCliente(&(*head), name, password, ID); // experimental, its werks yay
             }
         }
         fclose(fp);
@@ -210,9 +194,9 @@ AdminUser_t *deserialize_Admins(AdminUser_t **head)
     return *head;
 }
 
-AdminUser_t *deleteUser(AdminUser_t *head, int codename)
+Clientes_t *deleteClientes(Clientes_t *head, int ID)
 {
-    AdminUser_t *current = head, *prev = head, *temp;
+    Clientes_t *current = head, *prev = head, *temp;
     if (current == NULL)
     {
         printf("list is empty, insert an user first");
@@ -220,7 +204,7 @@ AdminUser_t *deleteUser(AdminUser_t *head, int codename)
     }
     else
 
-        if (current->codename == codename) // remove first instance found
+        if (current->ID == ID) // remove first instance found
     {
         temp = current->next;
         free(current);
@@ -230,19 +214,14 @@ AdminUser_t *deleteUser(AdminUser_t *head, int codename)
     else
     {
         // Find the instance we want deleted and delete it
-        while (current != NULL && current->codename != codename)
+        while (current != NULL && current->ID != ID)
         {
-            // if (temp->codename == codename)
-            // {
             prev = current;
             current = current->next;
-            // }
-            // *head = &(*head)->next; // continua a percorrer dentro da lista
         }
         // remove the node
         if (current == NULL)
         {
-            // temp = *head;
             return head;
         }
         else
@@ -256,31 +235,30 @@ AdminUser_t *deleteUser(AdminUser_t *head, int codename)
     }
 }
 
-
 /**
  * @brief Modify User data in to the linked list
- * 
- * @param head 
- * @param codename 
- * @param name 
- * @param password 
+ *
+ * @param head
+ * @param ID
+ * @param name
+ * @param password
  */
-void ModUser(AdminUser_t **head, int codename, char *name, char *password)
+void ModCliente(Clientes_t **head, int ID, char *name, char *password)
 {
     // setting up dynamic memory allocation pointer.
     // AdminUser_t *newNode = (AdminUser_t *)malloc(sizeof(AdminUser_t));
-    AdminUser_t *temp = *head;
+    Clientes_t *temp = *head;
 
     if (temp == NULL)
     {
         printf("Lista esta vazia!!\n");
         return;
     }
-    else if (temp->codename == codename) // if current find that our modifiable node is head
+    else if (temp->ID == ID) // if current find that our modifiable node is head
     {                                    // start modifying head
         strcpy(temp->name, name);        // copy name
         strcpy(temp->password, password);
-        temp->codename = codename;
+        temp->ID = ID;
 
         return;
     }
@@ -288,20 +266,17 @@ void ModUser(AdminUser_t **head, int codename, char *name, char *password)
     {
         while (temp != NULL)
         {
-            if (temp->codename == codename)
+            if (temp->ID == ID)
             {
                 strcpy(temp->name, name); // copy name
                 strcpy(temp->password, password);
-                temp->codename = codename;
-                // temp = newNode;
+                temp->ID = ID;
                 return;
             }
             temp = temp->next;
         }
-        // }
 
-        printf("Error: could not find node with codename %d\n", codename);
-        // return NULL;
+        printf("Error: could not find node with ID %d\n", ID);
     }
 }
 
@@ -310,11 +285,11 @@ void ModUser(AdminUser_t **head, int codename, char *name, char *password)
  *
  * @param head
  */
-void FreeMem_Admins(AdminUser_t **head)
+void FreeMem_Clientes(Clientes_t **head)
 {
     printf("\nFunção Liberar, a executar..");
-    AdminUser_t *newNode = *head;
-    AdminUser_t *temp;
+    Clientes_t *newNode = *head;
+    Clientes_t *temp;
     while (newNode != NULL)
     {
         // temp = newNode;

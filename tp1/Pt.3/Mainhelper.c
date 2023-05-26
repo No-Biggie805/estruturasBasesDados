@@ -1,10 +1,287 @@
 #include "DB.h"
 
-/*Launching as a seperate block*/
-void LoopMeiosProcedure()
+void LoopAdminsProcedure(AdminUser_t *head)
 {
-    Meios_t *head = NULL;
-    Grafo_t *headGraph = NULL;
+    char name[15], password[15];
+    int codename;
+
+    int opcao; //, tipo_user;
+
+    while (1)
+    {
+
+        // system("clear");
+        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->ViewFromFile/3->SaveToFile/4->RemoveUser/5->ModifyUserData/10->sair]\n");
+        printf("op:");
+        scanf("%d", &opcao);
+
+        switch (opcao)
+        {
+        case 0: // adding and auto serialization
+        {
+            /**
+             * @brief user input functions
+             *
+             */
+            system("clear");
+            printf("enter your username:");
+            scanf("%s", name);
+            printf("enter your password:");
+            scanf("%s", password);
+            printf("enter your code name: ");
+            scanf("%d", &codename);
+
+            /**
+             * @brief Construct a new Enter User object and store to link list
+             *
+             */
+            head = EnterUser(&head, name, password, codename);
+            // newUser = EnterUser(name, password); //to enter new user
+            // newUser->next = head;
+            // head = newUser;
+
+            /**
+             * @brief Construct a new Confirm Log I N object
+             *
+             */
+            ConfirmLogIN(head, name, codename); // passing procedure to confirm if user logged in
+            /**
+             * @brief Construct a new serialize object
+             *
+             */
+            serialize_Admins(head); // call for serialize funtion
+            printf("\n");
+            break;
+        }
+        case 1:
+        {
+            system("clear");
+            /**
+             * @brief Construct a new print List object
+             *
+             */
+            printList_Admins(head);
+            break;
+        }
+        case 2: // Read files data
+        {
+            system("clear");
+            /**
+             * @brief Construct a new deserialize object
+             *
+             */
+            deserialize_Admins(&head);
+            break;
+        }
+
+        case 3:
+        {
+            system("clear");
+            /**
+             * @brief Construct a new serialize object
+             *
+             */
+            serialize_Admins(head); // serialize at runtime whithout adding new user
+            break;
+        }
+
+        case 4:
+        {
+            system("clear");
+            printf("remover o user:\n");
+            printf("insira o codigo do gestor:");
+            scanf("%d", &codename);
+            /**
+             * @brief call the delete funtion and store to linked list
+             *
+             */
+            head = deleteUser(head, codename);
+            break;
+        }
+
+        case 5:
+        {
+            system("clear");
+            printf("funcao modificar data do user:\n");
+            printf("insira o codigo do gestor:");
+            scanf("%d", &codename);
+            printf("\ninsira name:");
+            scanf("%s", name);
+            printf("\ninsira password:");
+            scanf("%s", password);
+
+            ModUser(&head, codename, name, password);
+            break;
+        }
+
+        case 10:
+        {
+            system("clear");
+            printf("\n");
+            /**
+             * @brief Construct a new Free Mem object
+             *
+             */
+            FreeMem_Admins(&head); // funcção liberar apontadores à memoria
+            printf("-->saiu do programa\n");
+            return;
+            break;
+            // falta adicionar função liberar(free)
+        } // end of case 1
+
+        /**
+         * @brief default state, exiting the switch case going to while loop
+         *
+         */
+        default:
+            system("clear");
+            printf("Error:Invalid Option");
+        }
+    }
+}
+//----------------------------x--------------------------------------
+void LoopClientesProcedure(Clientes_t *head)
+{
+    char name[15], password[15];
+    int ID;
+
+    int opcao; //, tipo_user;
+
+    while (1)
+    {
+
+        // system("clear");
+        printf("selecione a sua opção: [0->inserir_user/1->VerListaPNome/2->ViewFromFile/3->SaveToFile/4->RemoveUser/5->ModifyUserData/10->sair]\n");
+        printf("op:");
+        scanf("%d", &opcao);
+
+        switch (opcao)
+        {
+        case 0: // adding and auto serialization
+        {
+            /**
+             * @brief user input functions
+             *
+             */
+            system("clear");
+            printf("enter your username:");
+            scanf("%s", name);
+            printf("enter your password:");
+            scanf("%s", password);
+            printf("enter your code name: ");
+            scanf("%d", &ID);
+
+            /**
+             * @brief Construct a new Enter User object and store to link list
+             *
+             */
+            head = EnterCliente(&head, name, password, ID);
+            /**
+             * @brief Construct a new Confirm Log I N object
+             *
+             */
+            ConfirmLoginCliente(head, name, ID); // passing procedure to confirm if user logged in
+            /**
+             * @brief Construct a new serialize object
+             *
+             */
+            serialize_Clientes(head); // call for serialize funtion
+            printf("\n");
+            break;
+        }
+        case 1:
+        {
+            system("clear");
+            /**
+             * @brief Construct a new print List object
+             *
+             */
+            printList_Clientes(head);
+            break;
+        }
+        case 2: // Read files data
+        {
+            system("clear");
+            /**
+             * @brief Construct a new deserialize object
+             *
+             */
+            deserialize_Cliente(&head);
+            break;
+        }
+
+        case 3:
+        {
+            system("clear");
+            /**
+             * @brief Construct a new serialize object
+             *
+             */
+            serialize_Clientes(head); // serialize at runtime whithout adding new user
+            break;
+        }
+
+        case 4:
+        {
+            system("clear");
+            printf("remover o user:\n");
+            printf("insira o codigo do gestor:");
+            scanf("%d", &ID);
+            /**
+             * @brief call the delete funtion and store to linked list
+             *
+             */
+            head = deleteClientes(head, ID);
+            break;
+        }
+
+        case 5:
+        {
+            system("clear");
+            printf("funcao modificar data do user:\n");
+            printf("insira o codigo do gestor:");
+            scanf("%d", &ID);
+            printf("\ninsira name:");
+            scanf("%s", name);
+            printf("\ninsira password:");
+            scanf("%s", password);
+
+            ModCliente(&head, ID, name, password);
+            break;
+        }
+
+        case 10:
+        {
+            system("clear");
+            printf("\n");
+            /**
+             * @brief Construct a new Free Mem object
+             *
+             */
+            FreeMem_Clientes(&head); // funcção liberar apontadores à memoria
+            printf("-->saiu do programa\n");
+            return;
+            break;
+            // falta adicionar função liberar(free)
+        } // end of case 1
+
+        /**
+         * @brief default state, exiting the switch case going to while loop
+         *
+         */
+        default:
+            system("clear");
+            printf("Error:Invalid Option");
+        }
+    }
+}
+//----------------------------x--------------------------------------
+
+/*Launching as a seperate block*/
+void LoopMeiosProcedure(Meios_t *head, Grafo_t *headGraph)
+{
+    head = NULL;
+    headGraph = NULL;
 
     char tipo[50];
     int CodeID;
@@ -51,7 +328,7 @@ void LoopMeiosProcedure()
             //  * @brief Construct a new Confirm Log I N object
             //  *
             //  */
-            // ConfirmLogIN(head, name, codename); // passing procedure to confirm if user logged in
+            // ConfirmLogIN(head, name, ID); // passing procedure to confirm if user logged in
             // /**
             //  * @brief Construct a new serialize object
             //  *

@@ -121,30 +121,6 @@ int existeVertice(Grafo_t *head, char V[])
     return 0; // vertice does not exist
 }
 
-// WIP
-// int criarEdge(Grafo_t *head, char vOrigem[], char vDestino[], float peso)
-// {
-//     Adjacentes_t *newNode = (Adjacentes_t *)malloc(sizeof(Adjacentes_t));
-//     if (existeVertice(head, vOrigem) && existeVertice(head, vDestino))
-//     {
-//         while (strcmp(head->vertice, vOrigem) != 0) // enquanto origem for diferente do vertice
-//             head = head->next;
-//         if (newNode != NULL) // se novo for !=Null
-//         {                    // criar novo edge/adjacente
-//             strcpy(newNode->vertice, vDestino);
-//             newNode->peso = peso;
-//             newNode->next = head->adjacents;
-//             head->adjacents = newNode;
-//             return 1;
-//         }
-//         else
-//             return 0;
-//     }
-//     else
-//         return 0;
-// }
-// WIP
-
 // Experimental implementation, adding function as procedure:
 void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso)
 {
@@ -156,7 +132,6 @@ void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso)
             temp = temp->next;
         if (newNode != NULL)
         {
-            // Grafo_t *temp = *head;
             strcpy(newNode->vertice, vDestino);
             newNode->peso = peso;
             newNode->next = temp->adjacents;
@@ -274,51 +249,6 @@ void listMeios_Geocode(Grafo_t *head, char geocodigo[])
         printf("geocodigo inesistente");
 }
 
-
-// void listMeios_Geocode(Grafo_t *head, char geocodigo[])
-// {
-//     Meios_t *aux = head->meios;
-//     if (aux == NULL)
-//     {
-//         printf("sem meios de transporte");
-//         return;
-//     }
-//     else
-//         while (head != NULL)
-//         {
-
-//             head = head->next;
-//         }
-// }
-
-// /*
-//  * @brief procedure to do confirm the user login
-//  *
-//  * @param head
-//  * @param name
-//  * @param codename
-//  */
-// void ConfirmLogIN(Meios_t *head, char name[], int codename)
-// {
-//     // dinamic allocation:experimental
-//     // Meios_t *temp = (Meios_t *)malloc(sizeof(Meios_t)); // setting up the allocation member pointer which will contain the data of the struct
-
-//     Meios_t *temp = head;
-
-//     if (strcmp(temp->name, name) == 0) // checking our respectfull user
-//     {
-//         if (temp->codename == codename) // checking our respectfull password
-//         {                               // trocar talvez para codename
-//             printf("\nUser verification: 'experimental'\n");
-//             printf("\nWelcome dear User:as menber:%s,as local:%s", name, temp->name);
-//         }
-//         else
-//             printf("\nWrong Password");
-//     }
-//     else
-//         printf("\nWrong UserName"); // prints if the local user is not equal to the one we should have from linked list
-// }
-
 /**
  * @brief procedure will print the linked list data.
  *
@@ -358,9 +288,9 @@ void printList_Meios(Meios_t *head) // Nao precisa mexer
  * @param head
  */
 void serialize_Meios(Meios_t *head) // no need to create as **head since we are not changing
-                              // data from linked list, and we only need to serialize data to a file
+                                    // data from linked list, and we only need to serialize data to a file
 {
-    FILE *fp = fopen("list.txt", "w");
+    FILE *fp = fopen("listMeios.txt", "w");
     if (fp == NULL)
     {
         printf("error opening file");
@@ -383,7 +313,7 @@ void serialize_Meios(Meios_t *head) // no need to create as **head since we are 
  */
 Meios_t *deserialize_Meios(Meios_t **head)
 {
-    FILE *fp = fopen("list.txt", "r");
+    FILE *fp = fopen("listMeios.txt", "r");
     // Meios_t *temp = NULL;
     // char name[15], password[15];
     // int codename;
@@ -407,16 +337,8 @@ Meios_t *deserialize_Meios(Meios_t **head)
             }
             else
             {
-                // fscanf(fp, "%[^|]|%[^|]|\n", name, password);
-                // submiting to linked list inside of head
-
                 // adicionar codename
                 *head = insertMeio(&(*head), type, CodeID, batery, autonomia); // experimental, its werks yay
-
-                // strcpy(newNode->name, name);
-                // strcpy(newNode->password, password);
-                // newNode->next = *head;
-                // *head = newNode;}
             }
         }
         fclose(fp);
@@ -573,42 +495,6 @@ void PrintListaMeiosAlugados(Meios_t *head)
         temp = temp->next;
     }
 }
-
-// Listagem dos meios em ordem decrescente de autonomia
-// void PrintOrdemDecrescente(Meios_t *head)
-// {
-//     Meios_t *current = head, *index = NULL;
-//     float tempSortData;
-//     if (current == NULL)
-//     {
-//         printf("Lista encontra-se vazia");
-//         return;
-//     }
-//     else
-//     {
-//         // for (size_t i < temp->autonomia[i]; i >= 0; i--)
-//         // {
-
-//         // }
-//         while (current != NULL)
-//         {
-//             index = current->next;
-//             while (index != NULL)
-//             {
-//                 if (current->autonomia > index->autonomia)
-//                 {
-//                     // primeiro fazer o update dos dados
-//                     tempSortData = current->autonomia;
-//                     current->autonomia = index->autonomia;
-//                     index->autonomia = tempSortData;
-
-//                     // seguinte será mover dentro da linked list
-//                     // strncpy(temp)
-//                 }
-//             }
-//         }
-//     }
-// }
 
 /**
  * @brief Printar em ordem descrescente na lista
