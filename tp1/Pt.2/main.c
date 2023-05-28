@@ -189,9 +189,9 @@ int main()
             // valor = criarVertice(&headGraph, "abc.def.ghi");
             // printf("retorno vertice: %d", valor);
             criarVertice(&headGraph, "abc.def.ghi"); // cria v1, em teoria passamos o apontador da lista(g)
-                                                     // e o vertice que no caso sera um sitio na cidade
-            criarVertice(&headGraph, "bc.def.ghi");  // cria v2
-            criarVertice(&headGraph, "bc.def.hi");   // cria v3
+                                                                 // e o vertice que no caso sera um sitio na cidade
+            criarVertice(&headGraph, "bc.def.ghi"); // cria v2
+            criarVertice(&headGraph, "bc.def.hi"); // cria v3
             printf("\n");
             printf("\n");
             break;
@@ -220,7 +220,7 @@ int main()
         {
             system("clear");
             printf("Vertices adjacentes a abc.def.ghi\n");
-            listarEdges(headGraph, "abc.def.ghi");
+            listarEdges(headGraph, "abc.def.ghi"); // nao escreve nada xd
             printf("\n");
             printf("\n");
 

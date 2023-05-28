@@ -35,13 +35,10 @@ typedef struct registo2
 typedef struct registo1 // Main acesso gestao vertices.
 {
     char vertice[TAM]; // array de vertices
+    struct registo1 *next;
     Meios_t *meios;
-    struct registo1 *next; // ficar next1 para n confundir com o main
     Adjacentes_t *adjacents;
 } Grafo_t;
-
-//  Meios_t *head;
-// void generateNewList();
 
 Meios_t *insertMeio(Meios_t **head, char type[], int CodeID, float batery, float autonomia);
 void printList(Meios_t *head);
@@ -60,11 +57,10 @@ Meios_t *PrintOrdemDecrescente(Meios_t *head);
 int existeVertice(Grafo_t *head, char V[]);
 int criarVertice(Grafo_t **head, char V[]);
 // int criarEdge(Grafo_t *head, char vOrigem[], char vDestino[], float peso);
-//Experimental implementation, adding function as procedure:
-void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso);//upstream, dk if it will have issues though >P
+// Experimental implementation, adding function as procedure:
+void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso); // upstream, dk if it will have issues though >P
 void listarEdges(Grafo_t *head, char vertice[]);
 
-//WIP, research on adding meios functions..
+// WIP, research on adding meios functions..
 void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID);
 void listMeios_Geocode(Grafo_t *head, char geocodigo[]);
-

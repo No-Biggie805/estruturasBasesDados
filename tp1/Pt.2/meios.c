@@ -90,6 +90,7 @@ int criarVertice(Grafo_t **head, char V[])
         {
             strcpy(newNode->vertice, V);
             newNode->meios = NULL;
+            newNode->adjacents = NULL;
             newNode->next = *head;
             *head = newNode;
             return 1;
@@ -121,30 +122,6 @@ int existeVertice(Grafo_t *head, char V[])
     return 0; // vertice does not exist
 }
 
-// WIP
-// int criarEdge(Grafo_t *head, char vOrigem[], char vDestino[], float peso)
-// {
-//     Adjacentes_t *newNode = (Adjacentes_t *)malloc(sizeof(Adjacentes_t));
-//     if (existeVertice(head, vOrigem) && existeVertice(head, vDestino))
-//     {
-//         while (strcmp(head->vertice, vOrigem) != 0) // enquanto origem for diferente do vertice
-//             head = head->next;
-//         if (newNode != NULL) // se novo for !=Null
-//         {                    // criar novo edge/adjacente
-//             strcpy(newNode->vertice, vDestino);
-//             newNode->peso = peso;
-//             newNode->next = head->adjacents;
-//             head->adjacents = newNode;
-//             return 1;
-//         }
-//         else
-//             return 0;
-//     }
-//     else
-//         return 0;
-// }
-// WIP
-
 // Experimental implementation, adding function as procedure:
 void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso)
 {
@@ -161,6 +138,7 @@ void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso)
             newNode->peso = peso;
             newNode->next = temp->adjacents;
             temp->adjacents = newNode;
+            printf("adjacente criado");
         }
         else
             return;
@@ -173,58 +151,30 @@ void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso)
 }
 // Experimental------------------------------------------
 
-// // função listar adjacentes, coordernadas do grafo.
-// void listarEdges(Grafo_t *head, char vertice[])
-// {
-//     Adjacentes_t *aux;
-//     if (existeVertice(head, vertice) != 0)
-//     {
-//         while (strcmp(head->vertice, vertice))
-//             head = head->next;
-//         aux = head->adjacents;
-//         while (aux != NULL)
-//         {
-//             printf("Adjacente:%s Peso:%.2f\n", aux->vertice, aux->peso);
-//             aux = aux->next;
-//         }
-//     }
-// }
-
 void listarEdges(Grafo_t *head, char vertice[])
 {
     Adjacentes_t *aux;
     while (head != NULL)
     {
+        printf("Vertex: %s\n", head->vertice);
         aux = head->adjacents;
-        while (aux != NULL)
+        if (aux == NULL)
         {
-            printf("Adjacente:%s Peso:%.2f\n", aux->vertice, aux->peso);
-            aux = aux->next;
+            printf(" No Edges\n");
         }
-        return;
-    }
-    head = head->next;
-}
-/*
-void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID)
-{
-    while ((head != NULL) && (strcmp(head->vertice, geocodigo)) != 0)
+        else
+        {
+            printf("Adjacentes:\n");
+            while (aux != NULL)
+            {
+                printf("Destino:%s Peso:%.2f\n", aux->vertice, aux->peso);
+                aux = aux->next;
+            }
+        }
         head = head->next;
-    if (head == NULL)
-        return;
-    // return 0;
-    else
-    {
-        // problema, estamos a mexer na linked list principal, contudo apenas no id do veiculo dentro desta funcao,
-        // podemos aplicar alteracao, se nao considerarmos nada relevante dos valores principais contudo.. ns..
-        Meios_t *newNode = (Meios_t *)malloc(sizeof(Meios_t));
-        newNode->CodeID = CodeID;
-        newNode->next = head->meios;
-        head->meios = newNode;
-        // return 1;
     }
 }
-*/
+
 void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID)
 {
     //  *temp = head;
@@ -273,7 +223,6 @@ void listMeios_Geocode(Grafo_t *head, char geocodigo[])
     else
         printf("geocodigo inesistente");
 }
-
 
 // void listMeios_Geocode(Grafo_t *head, char geocodigo[])
 // {
