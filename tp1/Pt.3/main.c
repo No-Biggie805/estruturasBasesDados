@@ -132,13 +132,6 @@ int main()
                 }
             }
         }
-        // else if (tipo == 2)
-        // {
-        //     printf("Insira o nome do gestor:");
-        //     scanf("%s", Cliente);
-        //     printf("insira id do gestor: ");
-        //     scanf("%d", &ID);
-        // }
         printf("deseja continuar?");
         scanf("%d", &continua);
         if (!continua)

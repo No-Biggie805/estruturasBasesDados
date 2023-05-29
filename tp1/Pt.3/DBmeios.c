@@ -90,6 +90,7 @@ int criarVertice(Grafo_t **head, char V[])
         {
             strcpy(newNode->vertice, V);
             newNode->meios = NULL;
+            newNode->adjacents = NULL;
             newNode->next = *head;
             *head = newNode;
             return 1;
@@ -170,15 +171,23 @@ void listarEdges(Grafo_t *head, char vertice[])
     Adjacentes_t *aux;
     while (head != NULL)
     {
+
         aux = head->adjacents;
-        while (aux != NULL)
+        if (aux == NULL)
         {
-            printf("Adjacente:%s Peso:%.2f\n", aux->vertice, aux->peso);
-            aux = aux->next;
+            printf("no edges\n");
         }
-        return;
+        else
+        {
+            printf("Adjacentes:\n");
+            while (aux != NULL)
+            {
+                printf("Destino:%s Peso:%.2f\n", aux->vertice, aux->peso);
+                aux = aux->next;
+            }
+        }
+        head = head->next;
     }
-    head = head->next;
 }
 /*
 void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID)
