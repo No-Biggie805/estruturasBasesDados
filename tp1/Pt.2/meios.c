@@ -80,6 +80,11 @@ Meios_t *insertMeio(Meios_t **head, char type[], int CodeID, float batery, float
     // colocar função criar nova lista se for vazio??(ver codigo do trabalho do 1ºano, no replit)
 }
 
+/**
+ * @brief Funcao criarVertice, cria o vertice para depois poder ser usado em adjacentes
+ * os vertices atuam como o ponto da trajectoria como no caminho de uma rua dentro da cidade.
+ * 
+ */
 // Funcao criar vertice: o vertice neste significa um ponto na rua.
 int criarVertice(Grafo_t **head, char V[])
 {
@@ -107,7 +112,7 @@ int criarVertice(Grafo_t **head, char V[])
     }
 }
 
-// funcao verificar se vertice existe, parecido com exiteMeio.
+/// funcao verificar se vertice existe, parecido com exiteMeio.
 int existeVertice(Grafo_t *head, char V[])
 {
     // Grafo_t *temp ;

@@ -1,7 +1,7 @@
 /**
- * @file user.c
+ * @file Admins.c
  * @author Jose Santos (a18605@alunos.ipca.pt)
- * @brief this file takes care of the functions and procedures that we are gonna use to make our link list program
+ * @brief Este ficheiro tem pocesso a funcoes dos gestores.
  * @version 0.1
  * @date 2023-03-19
  *

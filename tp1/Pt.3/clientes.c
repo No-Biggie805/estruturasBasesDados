@@ -1,7 +1,7 @@
 /**
- * @file user.c
+ * @file clientes.c
  * @author Jose Santos (a18605@alunos.ipca.pt)
- * @brief this file takes care of the functions and procedures that we are gonna use to make our link list program
+ * @brief Ficheiro contem funcoes dos clientes para poder gerir os mesmos. Funcionalidade do cliente nao foi possivel ser adiciona.
  * @version 0.1
  * @date 2023-03-19
  *

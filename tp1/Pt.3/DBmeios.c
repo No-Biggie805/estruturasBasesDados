@@ -1,7 +1,7 @@
 /**
- * @file user.c
+ * @file DBmeios.c
  * @author Jose Santos (a18605@alunos.ipca.pt)
- * @brief this file takes care of the functions and procedures that we are gonna use to make our link list program
+ * @brief Funcao trata de funcoes para os meios assim como tambem dos grafos para os mesmos. 
  * @version 0.1
  * @date 2023-03-19
  *
@@ -66,12 +66,12 @@ Meios_t *insertMeio(Meios_t **head, char type[], int CodeID, float batery, float
             newNode->next = *head; // considerar prox, do atual como nulo
             *head = newNode;       // inicio de lista nulo
         }
-        printf("user nao existe, a retornar novo.\n");
+        printf("meio nao existe, a retornar novo.\n");
         return newNode;
     }
     else
     {
-        printf("user ja existe, a retornar o mesmo.\n");
+        printf("meio ja existe, a retornar o mesmo.\n");
         return *head;
     }
 
@@ -79,7 +79,11 @@ Meios_t *insertMeio(Meios_t **head, char type[], int CodeID, float batery, float
 
     // colocar função criar nova lista se for vazio??(ver codigo do trabalho do 1ºano, no replit)
 }
-
+/**
+ * @brief Funcao criarVertice, cria o vertice para depois poder ser usado em adjacentes
+ * os vertices atuam como o ponto da trajectoria como no caminho de uma rua dentro da cidade.
+ * 
+ */
 // Funcao criar vertice: o vertice neste significa um ponto na rua.
 int criarVertice(Grafo_t **head, char V[])
 {
@@ -107,7 +111,7 @@ int criarVertice(Grafo_t **head, char V[])
     }
 }
 
-// funcao verificar se vertice existe, parecido com exiteMeio.
+/// funcao verificar se vertice existe, parecido com exiteMeio.
 int existeVertice(Grafo_t *head, char V[])
 {
     // Grafo_t *temp ;
@@ -171,7 +175,7 @@ void listarEdges(Grafo_t *head, char vertice[])
     Adjacentes_t *aux;
     while (head != NULL)
     {
-
+        printf("Vertice: %s\n", head->vertice);
         aux = head->adjacents;
         if (aux == NULL)
         {
@@ -189,26 +193,7 @@ void listarEdges(Grafo_t *head, char vertice[])
         head = head->next;
     }
 }
-/*
-void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID)
-{
-    while ((head != NULL) && (strcmp(head->vertice, geocodigo)) != 0)
-        head = head->next;
-    if (head == NULL)
-        return;
-    // return 0;
-    else
-    {
-        // problema, estamos a mexer na linked list principal, contudo apenas no id do veiculo dentro desta funcao,
-        // podemos aplicar alteracao, se nao considerarmos nada relevante dos valores principais contudo.. ns..
-        Meios_t *newNode = (Meios_t *)malloc(sizeof(Meios_t));
-        newNode->CodeID = CodeID;
-        newNode->next = head->meios;
-        head->meios = newNode;
-        // return 1;
-    }
-}
-*/
+
 void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID)
 {
     //  *temp = head;
@@ -236,6 +221,69 @@ void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID)
         // return 1;
     }
     // }
+}
+void serialize_grafo(Grafo_t *head) // Core dump
+{
+    FILE *fp = fopen("grafo_list.txt", "w");
+    if (fp == NULL)
+    {
+        printf("error opening file");
+        return;
+    }
+    if (head == NULL)
+        return;
+
+    while (head != NULL)
+    {
+        // writing vertex data to the file
+        fprintf(fp, "%s\n", head->vertice);
+        Adjacentes_t *aux = head->adjacents;
+
+        // for (aux; aux != NULL; aux = aux->next)
+        while (aux != NULL)
+        {
+            // fprintf(fp, "%s|%d|%f|%f\n", aux->vertice, aux->peso); // adicionar codename
+            fprintf(fp, "%s %s %.2f\n", aux->vertice, aux->vertice, aux->peso);
+            aux = aux->next;
+        }
+        head = head->next;
+    }
+
+    printf("Dados escritos para o ficheiro.");
+    fclose(fp);
+}
+
+Grafo_t *deserialize_grafo(Grafo_t **head)
+{
+    FILE *fp = fopen("grafo_list.txt", "r");
+
+    // Grafo_t vertex;
+
+    char vertice[TAM], vOrigem[TAM], vDestino[TAM];
+    float peso;
+
+    if (fp == NULL) // yes, this works
+    {
+        printf("Error opening file.\n");
+        return NULL; // or return if void ??
+    }
+    // else if (fp != NULL)
+    // {
+    while (fscanf(fp, "%s", vertice) == 1) // scanning while it has not reached the E.O.F.
+    {
+
+        criarVertice(&(*head), vertice);
+
+        while (fscanf(fp, "%s %s %f", vOrigem, vDestino, &peso) == 3)
+        {
+            printf("vOrigem: %s, vDestino: %s, peso: %.2f\n", vOrigem, vDestino, peso);
+            criarEdge(&(*head), vOrigem, vDestino, peso); // experimental, its werks yay
+        }
+    }
+    // }
+    fclose(fp);
+    printf("-->Data loaded from file successfully.\n");
+    return *head;
 }
 
 void listMeios_Geocode(Grafo_t *head, char geocodigo[])

@@ -37,6 +37,10 @@ typedef struct Clientes // lista de usuário a manter o programa, irá talvez se
 } Clientes_t;
 
 /*Estruturas para os meios*/
+/**
+ * @brief Estrutura dos meios
+ * 
+ */
 typedef struct Meios // lista de usuário a manter o programa, irá talvez ser melhorado
                      // conforme o que o professor preferir
 {
@@ -46,6 +50,10 @@ typedef struct Meios // lista de usuário a manter o programa, irá talvez ser m
     struct Meios *next;
 } Meios_t;
 
+/**
+ * @brief Estrutura dos adjacentes
+ * 
+ */
 typedef struct registo2
 {
     char vertice[TAM];
@@ -53,6 +61,10 @@ typedef struct registo2
     struct registo2 *next;
 } Adjacentes_t;
 
+/**
+ * @brief Estrutra do grafo
+ * 
+ */
 typedef struct registo1 // Main acesso gestao vertices.
 {
     char vertice[TAM]; // array de vertices
@@ -114,5 +126,10 @@ void listarEdges(Grafo_t *head, char vertice[]);
 //WIP, research on adding meios functions..
 void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID);
 void listMeios_Geocode(Grafo_t *head, char geocodigo[]);
+
+/*WIP*/
+void serialize_grafo(Grafo_t *head);
+Grafo_t *deserialize_grafo(Grafo_t **head);
+/*WIP*/
 /*Fim lista, invocar meios*/
 

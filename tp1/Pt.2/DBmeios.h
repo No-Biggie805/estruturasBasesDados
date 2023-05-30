@@ -16,6 +16,10 @@
 // #include <stdbool.h>
 #define TAM 50
 
+/**
+ * @brief Estrutura dos meios
+ * 
+ */
 typedef struct Meios // lista de usuário a manter o programa, irá talvez ser melhorado
                      // conforme o que o professor preferir
 {
@@ -25,6 +29,10 @@ typedef struct Meios // lista de usuário a manter o programa, irá talvez ser m
     struct Meios *next;
 } Meios_t;
 
+/**
+ * @brief Estrutura dos adjacentes
+ * 
+ */
 typedef struct registo2
 {
     char vertice[TAM];
@@ -32,6 +40,10 @@ typedef struct registo2
     struct registo2 *next;
 } Adjacentes_t;
 
+/**
+ * @brief Estrutra do grafo
+ * 
+ */
 typedef struct registo1 // Main acesso gestao vertices.
 {
     char vertice[TAM]; // array de vertices

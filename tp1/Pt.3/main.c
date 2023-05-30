@@ -1,19 +1,13 @@
-/*Questões a fazer ao professor sobre o trabalho:
-1->Qual  será a estrutura base do programa ao desenvolver sem inclusão dos dados da lista?
-e.g:quesão do registo do utilizador
-R:serão listas do Cliente, gestor e mobilidade
-
-2->Como irá depois ser feito o funcionamento do antes e depois de implementar as linked lists?
-e.g:questões da gestão de dados quais poderão ser numa
-estrutura base e os que serão para linked list?
-
-R: em principio serão todos linked lists
-*/
-
 /**
  * @file main.c
  * @author Jose Santos(a18605@alunos.ipca.pt)
- * @brief ficheiro main, contem o menu que ira conter as seguintes funcoes
+ * @brief ficheiro main, contem o menu que ira conter as seguintes funcoes.
+ * Este ficheiro e a base do programa e aqui que irei falar um bocado sobre o mesmo.
+ * O projecto tem como base o funcionamento gerir meios de transporte numa regiao num dado instante, a base de intuito da mesma vem a ser do estudo 
+ * do fundamento de estruturas de dados, a manipulacão de listas dentro da memória, e no disco.
+ * De momento temos alguns exemplos como gestao dos clientes, meios e gestores, funcões mais basicas como adicionar, listar mas tambem de manipulacão, como modificar, etc. 
+ * Poderá também o usuário(gestor) ainda gravar e ler do ficheiro os meios. 
+ * Para além disso explora um pouco da implementação de um grafo para essa mesma região. 
  * @version 0.1
  * @date 2023-03-19
  *
