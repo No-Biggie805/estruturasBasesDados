@@ -64,3 +64,8 @@ void listarEdges(Grafo_t *head, char vertice[]);
 // WIP, research on adding meios functions..
 void inserirMeio_GeoCode(Grafo_t *head, char geocodigo[], int CodeID);
 void listMeios_Geocode(Grafo_t *head, char geocodigo[]);
+
+/*WIP*/
+void serialize_grafo(Grafo_t *head);
+Grafo_t *deserialize_grafo(Grafo_t **head);
+/*WIP*/

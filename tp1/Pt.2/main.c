@@ -44,7 +44,7 @@ int main()
         // system("clear");
         printf("selecione a sua opção: [0->inserir_meio/1->VerListaPMeio/2->ViewFromFile/3->SaveToFile/4->RemoveMeio");
         printf("/5->ModifyMeioData/6->RegistarAluguerMeio/7->ListarMeiosAlugados/8->PrintOrdemDecrescente/");
-        printf("9->AddVertice/10->AddEdge/11->ListarEdges/12->AddMeios_Geocode/13->listarMeios_Geocode/20->sair]\n");
+        printf("9->AddVertice/10->AddEdge/11->ListarEdges/12->AddMeios_Geocode/13->listarMeios_Geocode/14->Save2FileGraph/15->ReadFromFileGraph/20->sair]\n");
         printf("op:");
         scanf("%d", &opcao);
 
@@ -189,9 +189,9 @@ int main()
             // valor = criarVertice(&headGraph, "abc.def.ghi");
             // printf("retorno vertice: %d", valor);
             criarVertice(&headGraph, "abc.def.ghi"); // cria v1, em teoria passamos o apontador da lista(g)
-                                                                 // e o vertice que no caso sera um sitio na cidade
-            criarVertice(&headGraph, "bc.def.ghi"); // cria v2
-            criarVertice(&headGraph, "bc.def.hi"); // cria v3
+                                                     // e o vertice que no caso sera um sitio na cidade
+            criarVertice(&headGraph, "bc.def.ghi");  // cria v2
+            criarVertice(&headGraph, "bc.def.hi");   // cria v3
             printf("\n");
             printf("\n");
             break;
@@ -249,6 +249,22 @@ int main()
             listMeios_Geocode(headGraph, "abc.def.ghi");
             printf("\n");
             listMeios_Geocode(headGraph, "bc.def.ghi");
+            printf("\n");
+            break;
+        }
+        case 14: // serialize
+        {
+            system("clear");
+            serialize_grafo(headGraph);
+            printf("\n");
+            printf("\n");
+            break;
+        }
+        case 15:
+        {
+            system("clear");
+            deserialize_grafo(&headGraph);
+            printf("\n");
             printf("\n");
             break;
         }

@@ -102,7 +102,7 @@ int criarVertice(Grafo_t **head, char V[])
     }
     else
     {
-        printf("Vertice Existe");
+        printf("Vertice Existe\n");
         return -1;
     }
 }
@@ -138,7 +138,7 @@ void criarEdge(Grafo_t **head, char vOrigem[], char vDestino[], float peso)
             newNode->peso = peso;
             newNode->next = temp->adjacents;
             temp->adjacents = newNode;
-            printf("adjacente criado");
+            printf("adjacente criado\n");
         }
         else
             return;
@@ -156,7 +156,7 @@ void listarEdges(Grafo_t *head, char vertice[])
     Adjacentes_t *aux;
     while (head != NULL)
     {
-        printf("Vertex: %s\n", head->vertice);
+        printf("Vertice: %s\n", head->vertice);
         aux = head->adjacents;
         if (aux == NULL)
         {
@@ -224,49 +224,125 @@ void listMeios_Geocode(Grafo_t *head, char geocodigo[])
         printf("geocodigo inesistente");
 }
 
-// void listMeios_Geocode(Grafo_t *head, char geocodigo[])
+/*WIP*/
+void serialize_grafo(Grafo_t *head) // Core dump
+{
+    FILE *fp = fopen("grafo_list.txt", "w");
+    if (fp == NULL)
+    {
+        printf("error opening file");
+        return;
+    }
+    if (head == NULL)
+        return;
+
+    while (head != NULL)
+    {
+        // writing vertex data to the file
+        fprintf(fp, "%s\n", head->vertice);
+        Adjacentes_t *aux = head->adjacents;
+
+        // for (aux; aux != NULL; aux = aux->next)
+        while (aux != NULL)
+        {
+            // fprintf(fp, "%s|%d|%f|%f\n", aux->vertice, aux->peso); // adicionar codename
+            fprintf(fp, "%s %s %.2f\n", aux->vertice, aux->vertice, aux->peso);
+            aux = aux->next;
+        }
+        head = head->next;
+    }
+
+    printf("Dados escritos para o ficheiro.");
+    fclose(fp);
+}
+
+// // Function to serialize the graph data and write it to a file
+// void serializeGraph(Grafo_t *head)
 // {
-//     Meios_t *aux = head->meios;
-//     if (aux == NULL)
-//     {
-//         printf("sem meios de transporte");
+//     FILE *fp = fopen("grafo_list.txt", "w");
+//     if (head == NULL)
 //         return;
-//     }
-//     else
-//         while (head != NULL)
-//         {
 
-//             head = head->next;
-//         }
-// }
+//     // Write the vertex data to the file
+//     fwrite(head, sizeof(Grafo_t), 1, fp);
 
-// /*
-//  * @brief procedure to do confirm the user login
-//  *
-//  * @param head
-//  * @param name
-//  * @param codename
-//  */
-// void ConfirmLogIN(Meios_t *head, char name[], int codename)
-// {
-//     // dinamic allocation:experimental
-//     // Meios_t *temp = (Meios_t *)malloc(sizeof(Meios_t)); // setting up the allocation member pointer which will contain the data of the struct
-
-//     Meios_t *temp = head;
-
-//     if (strcmp(temp->name, name) == 0) // checking our respectfull user
+//     // Serialize and write the adjacent vertices
+//     Adjacentes_t *adjacent = head->adjacents;
+//     while (adjacent != NULL)
 //     {
-//         if (temp->codename == codename) // checking our respectfull password
-//         {                               // trocar talvez para codename
-//             printf("\nUser verification: 'experimental'\n");
-//             printf("\nWelcome dear User:as menber:%s,as local:%s", name, temp->name);
-//         }
-//         else
-//             printf("\nWrong Password");
+//         serializeGraph(existeVertice(head, adjacent->vertice));
+//         adjacent = adjacent->next;
 //     }
-//     else
-//         printf("\nWrong UserName"); // prints if the local user is not equal to the one we should have from linked list
 // }
+
+// -----------------------------x------------------------------
+
+Grafo_t *deserialize_grafo(Grafo_t **head)
+{
+    FILE *fp = fopen("grafo_list.txt", "r");
+
+    // Grafo_t vertex;
+
+    char vertice[TAM], vOrigem[TAM], vDestino[TAM];
+    float peso;
+
+    if (fp == NULL) // yes, this works
+    {
+        printf("Error opening file.\n");
+        return NULL; // or return if void ??
+    }
+    // else if (fp != NULL)
+    // {
+    while (fscanf(fp, "%s", vertice) == 1) // scanning while it has not reached the E.O.F.
+    {
+
+        criarVertice(&(*head), vertice);
+
+        while (fscanf(fp, "%s %s %f", vOrigem, vDestino, &peso) == 3)
+        {
+            printf("vOrigem: %s, vDestino: %s, peso: %.2f\n", vOrigem, vDestino, peso);
+            criarEdge(&(*head), vOrigem, vDestino, peso); // experimental, its werks yay
+        }
+    }
+    // }
+    fclose(fp);
+    printf("-->Data loaded from file successfully.\n");
+    return *head;
+}
+
+// // Function to deserialize the graph data from a file
+// Grafo_t *deserialize_grafo(Grafo_t **head)
+// {
+//     Grafo_t *head = NULL;
+//     Grafo_t vertex;
+//     FILE *fp = fopen("grafo_list.txt", "r");
+
+//     // Read the vertex data from the file
+//     while (fread(&vertex, sizeof(Grafo_t), 1, fp) == 1)
+//     {
+//         // Add the vertex to the graph
+//         Grafo_t *newVertex = criarVertice(&head, vertex.vertice);
+//         if (newVertex == NULL)
+//         {
+//             printf("Error: Failed to create a new vertex\n");
+//             return NULL;
+//         }
+
+//         // Deserialize and add the adjacent vertices
+//         Adjacentes_t *adjacent = vertex.adjacents;
+//         while (adjacent != NULL)
+//         {
+//             Grafo_t *adjVertex = findVertex(head, adjacent->vertice);
+//             if (adjVertex != NULL)
+//                 criarEdge(&head, newVertex->vertice, adjVertex->vertice, adjacent->peso);
+//             adjacent = adjacent->next;
+//         }
+//     }
+
+//     return head;
+// }
+
+/*WIP*/
 
 /**
  * @brief procedure will print the linked list data.
