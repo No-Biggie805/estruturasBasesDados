@@ -19,4 +19,5 @@ void FreeMem(gestor_t **head);
 int serialize_Data(gestor_t *head);
 gestor_t *deserialize_Data(gestor_t **head);
 void Remove_gestor(gestor_t **head, int ID);
+void muda_gestor(gestor_t **head, int ID, char nome[], char password[]);
 

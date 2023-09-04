@@ -37,7 +37,7 @@ int main()
             break;
         case 2:
             system("clear");
-            printf("printing out the link-list information");
+            printf("printing out the link-list information\n");
             printList(head);
             break;
         case 3:
@@ -56,7 +56,20 @@ int main()
             printf("Inicializar a leitura de dados");
             deserialize_Data(&head);
             break;
-
+        case 6:
+            system("clear");
+            printf("Função altera dados\n");
+            printf("insira o nome do gestor");
+            scanf("%s", nomeCompleto);
+            printf("\n");
+            printf("insira a password do gestor");
+            scanf("%s", password);
+            printf("\n");
+            printf("insira a identificação do gestor");
+            scanf("%d", &ID);
+            printf("\n");
+            muda_gestor(&head, ID, nomeCompleto, password);
+            break;
         case 0:
             system("clear");
             printf("\n");
@@ -82,6 +95,7 @@ int menu()
     printf("3 Remover gestores\n");
     printf("4 Guardar gestores\n");
     printf("5 Ler gestores\n");
+    printf("6 alterar dados gestor\n");
     printf("0 Sair\n");
     printf("Opcao:\n");
     scanf("%d", &op);

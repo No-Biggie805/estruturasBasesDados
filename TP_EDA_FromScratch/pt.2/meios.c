@@ -1,9 +1,9 @@
 
-#include "DBgestor.h"
+#include "meios.h"
 
-int existeGestor(gestor_t *head, int ID)
+int existeMeios(meios_t *head, int ID)
 {
-    gestor_t *temp = head;
+    meios_t *temp = head;
     while (head != NULL)
     {
         if (temp->ID == ID)
@@ -15,13 +15,13 @@ int existeGestor(gestor_t *head, int ID)
     return 0;
 }
 
-// gestor_t *criarGestor(gestor_t *head, char nomeCompleto[], char password[], int ID)
+// meios_t *criarGestor(meios_t *head, char nomeCompleto[], char password[], int ID)
 // {
 
 //     if (!existeGestor(head, ID))
 //     {
 //         // create dynamic allocation instance.
-//         gestor_t *newNode = (gestor_t *)malloc(sizeof(gestor_t));
+//         meios_t *newNode = (meios_t *)malloc(sizeof(meios_t));
 //         if (newNode != NULL)
 //         {
 //             strcpy(newNode->nomeCompleto, nomeCompleto);
@@ -35,14 +35,16 @@ int existeGestor(gestor_t *head, int ID)
 //         return (head);
 // }
 
-gestor_t *criarGestor(gestor_t **head, char nomeCompleto[], char password[], int ID)
+meios_t *criarMeios(meios_t **head, char tipo[], int ID, int bateria, int autonomia, char registo)
 {
-    gestor_t *newNode = (gestor_t *)malloc(sizeof(gestor_t));
-    if (!existeGestor(*head, ID))
+    meios_t *newNode = (meios_t *)malloc(sizeof(meios_t));
+    if (!existeMeios(*head, ID))
     {
-        strcpy(newNode->nomeCompleto, nomeCompleto);
-        strcpy(newNode->password, password);
+        strcpy(newNode->tipo, tipo);
         newNode->ID = ID;
+        newNode->bateria = bateria;
+        newNode->autonomia = autonomia;
+        newNode->registo = registo;
         newNode->next = NULL; // iMPORTANTE CONSIDERAR NULL AQUI PARA DEPOIS FAZER O NEXT->HEAD
         if (&(*head) == NULL)
             *head = newNode;
@@ -61,7 +63,7 @@ gestor_t *criarGestor(gestor_t **head, char nomeCompleto[], char password[], int
     }
 }
 
-void printList(gestor_t *head)
+void ListarMeios(meios_t *head)
 {
 
     // If we use the head pointer instead of the temp while printing the link list, we will miss track of the starting node,
@@ -79,17 +81,20 @@ void printList(gestor_t *head)
         while (head != NULL)
         {
             /* code */
-            printf("Nome:%s\n", head->nomeCompleto);
             printf("ID:%d\n", head->ID);
+            printf("Tipo:%s\n", head->tipo);
+            printf("Bateria:%d\n", head->bateria);
+            printf("Autonomia:%d\n", head->autonomia);
+            printf("registo:%c\n", head->registo);
             head = head->next;
         }
     }
 }
 
-int serialize_Data(gestor_t *head)
+int serialize_Data(meios_t *head)
 {
     FILE *fp = fopen("list.txt", "w");
-    gestor_t *temp = head;
+    meios_t *temp = head;
     if (fp == NULL)
     {
         fprintf(stderr, "\nCouldn't open any file");
@@ -98,7 +103,7 @@ int serialize_Data(gestor_t *head)
     // writing nodes of the link list to the file.
     while (temp != NULL)
     {
-        fprintf(fp, "%s|%s|%d\n", temp->nomeCompleto, temp->password, temp->ID);
+        fprintf(fp, "%s|%d|%d|%d|%c\n", temp->tipo, temp->ID, temp->bateria, temp->autonomia, temp->registo);
         temp = temp->next;
     }
 
@@ -106,11 +111,11 @@ int serialize_Data(gestor_t *head)
     return 1;
 }
 
-gestor_t *deserialize_Data(gestor_t **head)
+meios_t *deserialize_Data(meios_t **head)
 {
     FILE *fp = fopen("list.txt", "r");
-    char nomeCompleto[15], password[15];
-    int ID;
+    char tipo[15], registo;
+    int ID, bateria, autonomia;
 
     if (fp == NULL)
     {
@@ -119,7 +124,7 @@ gestor_t *deserialize_Data(gestor_t **head)
     }
     else
     {
-        while (fscanf(fp, "%[^|]|%[^|]|%d\n", nomeCompleto, password, &ID) != EOF)
+        while (fscanf(fp, "%[^|]|%d|%d|%d|%c\n", tipo, &ID, &bateria, &autonomia, &registo) != EOF)
         {
             if (head == NULL)
             {
@@ -128,7 +133,7 @@ gestor_t *deserialize_Data(gestor_t **head)
             else
             {
                 // adicionar ID
-                *head = criarGestor(&(*head), nomeCompleto, password, ID);
+                *head = criarMeios(&(*head), tipo, ID, bateria, autonomia, registo);
             }
         }
         fclose(fp);
@@ -137,9 +142,9 @@ gestor_t *deserialize_Data(gestor_t **head)
     return *head;
 }
 
-void Remove_gestor(gestor_t **head, int ID)
+void Remove_meios(meios_t **head, int ID)
 {
-    gestor_t *temp;
+    meios_t *temp;
     if ((*head)->ID == ID) // warning: comparison between pointer "(&(*head)->ID == ID)" and integer, indeed bad
     {
         temp = *head;          // store current
@@ -148,7 +153,7 @@ void Remove_gestor(gestor_t **head, int ID)
     }
     else
     {
-        gestor_t *current = *head;
+        meios_t *current = *head;
 
         while (current->next != NULL)
         {
@@ -166,7 +171,7 @@ void Remove_gestor(gestor_t **head, int ID)
     }
 }
 
-void muda_gestor(gestor_t **head, int ID, char nome[], char password[])
+void muda_meios(meios_t **head, char tipo[], int ID, int bateria, int autonomia)
 {
     int pos = 0;
 
@@ -175,13 +180,14 @@ void muda_gestor(gestor_t **head, int ID, char nome[], char password[])
         printf("Linked list seems to be empty");
         return;
     }
-    gestor_t *current = NULL;
+    meios_t *current = NULL;
     current = *head;
     if (current->ID == ID)
     {
-        strcpy(current->nomeCompleto, nome);
-        strcpy(current->password, password);
         current->ID = ID;
+        strcpy(current->tipo, tipo);
+        current->bateria = bateria;
+        current->autonomia = autonomia;
         return;
     }
     else
@@ -190,23 +196,52 @@ void muda_gestor(gestor_t **head, int ID, char nome[], char password[])
         {
             if (current->ID == ID)
             {
-                strcpy(current->nomeCompleto, nome);
-                strcpy(current->password, password);
                 current->ID = ID;
+                strcpy(current->tipo, tipo);
+                current->bateria = bateria;
+                current->autonomia = autonomia;
                 return;
             }
             current = current->next;
             pos++;
         }
     }
-    printf("ID %d does not exist in the list\n", ID);
+    printf("Meio de ID '%d' does not exist in the list\n", ID);
+}
+
+meios_t *RegistroAluguerMeio(meios_t *head, int ID)
+{
+    char registo = 'y';
+    meios_t *temp = head;
+    if (head == NULL)
+    {
+        return NULL;
+    }
+    if (existeMeios(temp, ID))
+    {
+        printf("a registar..");
+        temp->registo = registo;
+        printf("resgisto :%c", temp->registo);
+    }
+
+    while (temp->next != NULL)
+    {
+        if (existeMeios(temp, ID))
+        {
+            printf("a registar..");
+            temp->registo = registo;
+            printf("resgisto :%c", temp->registo);
+        }
+        temp = temp->next;
+    }
+    return head;
 }
 
 // Only funtion that works currectly for me??
-void FreeMem(gestor_t **head)
+void FreeMem(meios_t **head)
 {
-    gestor_t *newNode = *head;
-    gestor_t *temp;
+    meios_t *newNode = *head;
+    meios_t *temp;
     while (newNode != NULL)
     {
         /* code */
