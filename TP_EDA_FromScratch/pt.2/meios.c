@@ -35,7 +35,7 @@ int existeMeios(meios_t *head, int ID)
 //         return (head);
 // }
 
-meios_t *criarMeios(meios_t **head, char tipo[], int ID, int bateria, int autonomia, char registo)
+meios_t *criarMeios(meios_t **head, char tipo[], int ID, int bateria, int autonomia)
 {
     meios_t *newNode = (meios_t *)malloc(sizeof(meios_t));
     if (!existeMeios(*head, ID))
@@ -44,7 +44,7 @@ meios_t *criarMeios(meios_t **head, char tipo[], int ID, int bateria, int autono
         newNode->ID = ID;
         newNode->bateria = bateria;
         newNode->autonomia = autonomia;
-        newNode->registo = registo;
+        // newNode->registo = registo;
         newNode->next = NULL; // iMPORTANTE CONSIDERAR NULL AQUI PARA DEPOIS FAZER O NEXT->HEAD
         if (&(*head) == NULL)
             *head = newNode;
@@ -53,12 +53,12 @@ meios_t *criarMeios(meios_t **head, char tipo[], int ID, int bateria, int autono
             newNode->next = *head;
             *head = newNode;
         }
-        printf("gestor n existe, a retornar novo.\n");
+        printf("meio n existe, a retornar novo.\n");
         return newNode;
     }
     else
     {
-        printf("gestor existe, a retornar o mesmo.\n");
+        printf("meio existe, a retornar o mesmo.\n");
         return *head;
     }
 }
@@ -85,36 +85,34 @@ void ListarMeios(meios_t *head)
             printf("Tipo:%s\n", head->tipo);
             printf("Bateria:%d\n", head->bateria);
             printf("Autonomia:%d\n", head->autonomia);
-            printf("registo:%c\n", head->registo);
             head = head->next;
         }
     }
 }
 
-int serialize_Data(meios_t *head)
+void serialize_Data(meios_t *head)
 {
     FILE *fp = fopen("list.txt", "w");
     meios_t *temp = head;
     if (fp == NULL)
     {
         fprintf(stderr, "\nCouldn't open any file");
-        return 0;
+        return;
     }
     // writing nodes of the link list to the file.
     while (temp != NULL)
     {
-        fprintf(fp, "%s|%d|%d|%d|%c\n", temp->tipo, temp->ID, temp->bateria, temp->autonomia, temp->registo);
+        fprintf(fp, "%s|%d|%d|%d\n", temp->tipo, temp->ID, temp->bateria, temp->autonomia);
         temp = temp->next;
     }
 
     fclose(fp);
-    return 1;
 }
 
 meios_t *deserialize_Data(meios_t **head)
 {
     FILE *fp = fopen("list.txt", "r");
-    char tipo[15], registo;
+    char tipo[15];
     int ID, bateria, autonomia;
 
     if (fp == NULL)
@@ -124,7 +122,7 @@ meios_t *deserialize_Data(meios_t **head)
     }
     else
     {
-        while (fscanf(fp, "%[^|]|%d|%d|%d|%c\n", tipo, &ID, &bateria, &autonomia, &registo) != EOF)
+        while (fscanf(fp, "%[^|]|%d|%d|%d\n", tipo, &ID, &bateria, &autonomia) != EOF)
         {
             if (head == NULL)
             {
@@ -133,7 +131,7 @@ meios_t *deserialize_Data(meios_t **head)
             else
             {
                 // adicionar ID
-                *head = criarMeios(&(*head), tipo, ID, bateria, autonomia, registo);
+                *head = criarMeios(&(*head), tipo, ID, bateria, autonomia);
             }
         }
         fclose(fp);
@@ -209,12 +207,12 @@ void muda_meios(meios_t **head, char tipo[], int ID, int bateria, int autonomia)
     printf("Meio de ID '%d' does not exist in the list\n", ID);
 }
 
-meios_t *RegistroAluguerMeio(meios_t *head, int ID)
+void RegistroAluguerMeio(meios_t *head, int ID)
 {
-    char registo = 'y';
     meios_t *temp = head;
     if (head == NULL)
     {
+        printf("N achou nenhum meio com o ID, insira novo meio para poder registar");
         return NULL;
     }
     if (existeMeios(temp, ID))
@@ -235,6 +233,109 @@ meios_t *RegistroAluguerMeio(meios_t *head, int ID)
         temp = temp->next;
     }
     return head;
+}
+
+// // Organizar por ordem[decrescente]
+// meios_t *ListaOrdem(meios_t **head)
+// {
+//     meios_t *current = *head;
+//     meios_t *index = NULL;
+
+//     if (head == NULL)
+//     {
+//         printf("Lista Vazia\n");
+//         return;
+//     }
+//     else
+//     {
+//         while (current != NULL)
+//         {
+//             index = current->next;
+//             while (current->autonomia < index->autonomia) // while former < latter
+//             {
+//                 // begin swap process
+//                 meios_t *temp = current->next;
+//                 current->next = temp->next;
+//                 temp->next = current;
+//                 if (current == head)
+//                 {
+//                     head = temp;
+//                 }
+//                 else
+//                 {
+//                     meios_t *prev = head;
+//                     while (prev->next != current)
+//                         prev = prev->next;
+//                     prev->next = temp;
+//                 }
+//             }
+//             current = temp;
+//         }
+//         current = current->next;
+//     }
+// }
+
+// getting count of linked lists:
+int getCount(meios_t **head)
+{
+    meios_t *temp = *head;
+    int count = 0;
+    if (head == NULL)
+        return 0;
+    else
+    {
+        while (temp != NULL)
+        {
+            temp = temp->next;
+            count++;
+        }
+    }
+    return count;
+}
+
+/*Function to swap the nodes */
+meios_t *swap(meios_t *ptr1, meios_t *ptr2)
+{
+    meios_t *tmp = ptr2->next;
+    ptr2->next = ptr1;
+    ptr1->next = tmp;
+    return ptr2;
+}
+
+/* Function to sort the list */
+int bubbleSort(meios_t **head)
+{
+    meios_t *h;
+    int i, j, swapped;
+    int count = getCount(head);
+    for (i = 0; i <= count; i++)
+    {
+
+        h = *head;
+        swapped = 0;
+
+        for (j = 0; j < count - i - 1; j++)
+        {
+
+            meios_t *p1 = h;
+            meios_t *p2 = p1->next;
+
+            if (p1->autonomia < p2->autonomia)
+            {
+
+                /* update the link after swapping */
+                h = swap(p1, p2); // return ptr2 in place of ptr1
+                swapped = 1;
+            }
+
+            h = h->next;
+        }
+
+        /* break if the loop ended without any swap */
+        if (swapped == 0)
+            break;
+    }
+    return 0;
 }
 
 // Only funtion that works currectly for me??
