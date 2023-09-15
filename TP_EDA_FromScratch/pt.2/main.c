@@ -79,7 +79,7 @@ int main()
             printf("Função registo\n");
             printf("insira o ID do meio:");
             scanf("%d", &ID);
-            RegistroAluguerMeio(head, ID);
+            head = RegistroAluguerMeio(&head, ID);
             break;
         case 8:
             system("clear");

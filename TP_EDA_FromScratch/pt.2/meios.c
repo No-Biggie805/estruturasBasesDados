@@ -59,11 +59,12 @@ void ListarMeios(meios_t *head)
         while (head != NULL)
         {
             /* code */
-            printf("ID:%d\n", head->ID);
-            printf("Tipo:%s\n", head->tipo);
-            printf("Bateria:%f\n", head->bateria);
-            printf("Autonomia:%f\n", head->autonomia);
-            printf("Registo do veiculo:%d\n", head->RegistoMeio);
+            printf("ID:\t%d\n", head->ID);
+            printf("Tipo:\t%s\n", head->tipo);
+            printf("Bateria:\t%f\n", head->bateria);
+            printf("Autonomia:\t%f\n", head->autonomia);
+            printf("Registo do veiculo:\t%d\n", head->RegistoMeio);
+            printf("\n");
             head = head->next;
         }
     }
@@ -191,20 +192,20 @@ void muda_meios(meios_t **head, char tipo[], int ID, float bateria, float autono
     printf("Meio de ID '%d' does not exist in the list\n", ID);
 }
 
-void RegistroAluguerMeio(meios_t *head, int ID)
+meios_t *RegistroAluguerMeio(meios_t **head, int ID)
 {
-    meios_t *temp = head;
+    meios_t *temp = *head;
     if (head == NULL)
     {
         printf("N achou nenhum meio com o ID, insira novo meio para poder registar");
-        return;
+        return NULL;
     }
-    if (existeMeios(temp, ID))
+    if (existeMeios(*head, ID))
     {
         if (temp->ID == ID)
         {
             temp->RegistoMeio = 1;
-            return;
+            return *head;
         }
         else
         {
@@ -214,6 +215,7 @@ void RegistroAluguerMeio(meios_t *head, int ID)
             }
             temp->RegistoMeio = 1;
             printf("meio achado, registo feito");
+            return temp;
         }
     }
     else
