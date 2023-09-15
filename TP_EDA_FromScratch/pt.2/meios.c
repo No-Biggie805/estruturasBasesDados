@@ -3,39 +3,17 @@
 
 int existeMeios(meios_t *head, int ID)
 {
-    meios_t *temp = head;
+    // meios_t *temp = head;
     while (head != NULL)
     {
-        if (temp->ID == ID)
-        {
+        if (head->ID == ID)
             return 1;
-        }
-        temp = temp->next;
+        head = head->next;
     }
     return 0;
 }
 
-// meios_t *criarGestor(meios_t *head, char nomeCompleto[], char password[], int ID)
-// {
-
-//     if (!existeGestor(head, ID))
-//     {
-//         // create dynamic allocation instance.
-//         meios_t *newNode = (meios_t *)malloc(sizeof(meios_t));
-//         if (newNode != NULL)
-//         {
-//             strcpy(newNode->nomeCompleto, nomeCompleto);
-//             strcpy(newNode->password, password);
-//             newNode->ID = ID;
-//             newNode->next = head;
-//             return (newNode);
-//         }
-//     }
-//     else
-//         return (head);
-// }
-
-meios_t *criarMeios(meios_t **head, char tipo[], int ID, int bateria, int autonomia)
+meios_t *criarMeios(meios_t **head, char tipo[], int ID, float bateria, float autonomia, int RegistoMeio)
 {
     meios_t *newNode = (meios_t *)malloc(sizeof(meios_t));
     if (!existeMeios(*head, ID))
@@ -44,7 +22,7 @@ meios_t *criarMeios(meios_t **head, char tipo[], int ID, int bateria, int autono
         newNode->ID = ID;
         newNode->bateria = bateria;
         newNode->autonomia = autonomia;
-        // newNode->registo = registo;
+        newNode->RegistoMeio = RegistoMeio;
         newNode->next = NULL; // iMPORTANTE CONSIDERAR NULL AQUI PARA DEPOIS FAZER O NEXT->HEAD
         if (&(*head) == NULL)
             *head = newNode;
@@ -83,8 +61,9 @@ void ListarMeios(meios_t *head)
             /* code */
             printf("ID:%d\n", head->ID);
             printf("Tipo:%s\n", head->tipo);
-            printf("Bateria:%d\n", head->bateria);
-            printf("Autonomia:%d\n", head->autonomia);
+            printf("Bateria:%f\n", head->bateria);
+            printf("Autonomia:%f\n", head->autonomia);
+            printf("Registo do veiculo:%d\n", head->RegistoMeio);
             head = head->next;
         }
     }
@@ -93,19 +72,23 @@ void ListarMeios(meios_t *head)
 void serialize_Data(meios_t *head)
 {
     FILE *fp = fopen("list.txt", "w");
-    meios_t *temp = head;
+    meios_t *temp;
     if (fp == NULL)
     {
         fprintf(stderr, "\nCouldn't open any file");
         return;
     }
-    // writing nodes of the link list to the file.
-    while (temp != NULL)
+    if (head == NULL)
+        return;
+    else
     {
-        fprintf(fp, "%s|%d|%d|%d\n", temp->tipo, temp->ID, temp->bateria, temp->autonomia);
-        temp = temp->next;
-    }
 
+        // writing nodes of the link list to the file.
+        for (temp = head; temp != NULL; temp = temp->next)
+        {
+            fprintf(fp, "%s|%d|%f|%f|%d\n", temp->tipo, temp->ID, temp->bateria, temp->autonomia, temp->RegistoMeio);
+        }
+    }
     fclose(fp);
 }
 
@@ -113,7 +96,8 @@ meios_t *deserialize_Data(meios_t **head)
 {
     FILE *fp = fopen("list.txt", "r");
     char tipo[15];
-    int ID, bateria, autonomia;
+    int ID, RegistoMeio;
+    float bateria, autonomia;
 
     if (fp == NULL)
     {
@@ -122,7 +106,7 @@ meios_t *deserialize_Data(meios_t **head)
     }
     else
     {
-        while (fscanf(fp, "%[^|]|%d|%d|%d\n", tipo, &ID, &bateria, &autonomia) != EOF)
+        while (fscanf(fp, "%[^|]|%d|%f|%f|%d\n", tipo, &ID, &bateria, &autonomia, &RegistoMeio) != EOF)
         {
             if (head == NULL)
             {
@@ -131,7 +115,7 @@ meios_t *deserialize_Data(meios_t **head)
             else
             {
                 // adicionar ID
-                *head = criarMeios(&(*head), tipo, ID, bateria, autonomia);
+                *head = criarMeios(&(*head), tipo, ID, bateria, autonomia, RegistoMeio);
             }
         }
         fclose(fp);
@@ -169,7 +153,7 @@ void Remove_meios(meios_t **head, int ID)
     }
 }
 
-void muda_meios(meios_t **head, char tipo[], int ID, int bateria, int autonomia)
+void muda_meios(meios_t **head, char tipo[], int ID, float bateria, float autonomia)
 {
     int pos = 0;
 
@@ -213,28 +197,28 @@ void RegistroAluguerMeio(meios_t *head, int ID)
     if (head == NULL)
     {
         printf("N achou nenhum meio com o ID, insira novo meio para poder registar");
-        return NULL;
+        return;
     }
     if (existeMeios(temp, ID))
     {
-        printf("a registar..");
-        temp->registo = registo;
-        printf("resgisto :%c", temp->registo);
-    }
-
-    while (temp->next != NULL)
-    {
-        if (existeMeios(temp, ID))
+        if (temp->ID == ID)
         {
-            printf("a registar..");
-            temp->registo = registo;
-            printf("resgisto :%c", temp->registo);
+            temp->RegistoMeio = 1;
+            return;
         }
-        temp = temp->next;
+        else
+        {
+            while (temp->next != NULL)
+            {
+                temp = temp->next;
+            }
+            temp->RegistoMeio = 1;
+            printf("meio achado, registo feito");
+        }
     }
-    return head;
+    else
+        printf("inseriu codigo do meio correto?");
 }
-
 // // Organizar por ordem[decrescente]
 // meios_t *ListaOrdem(meios_t **head)
 // {

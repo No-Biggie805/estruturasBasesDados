@@ -9,7 +9,7 @@ int main()
     meios_t *head = NULL;
 
     char tipo[15];
-    int ID, bateria, autonomia, op;
+    int ID, bateria, autonomia, RegistoMeio, op;
 
     while (1)
     {
@@ -26,8 +26,9 @@ int main()
             scanf("%d", &bateria);
             printf("insira a autonomia do meio:");
             scanf("%d", &autonomia);
+            RegistoMeio = 0;
             // char registo = 'n';
-            head = criarMeios(&head, tipo, ID, bateria, autonomia);
+            head = criarMeios(&head, tipo, ID, bateria, autonomia, RegistoMeio);
             // Escrever dados pos ter guardado na memoria
             serialize_Data(head);
             // if (check == 1)
@@ -73,13 +74,13 @@ int main()
             printf("\n");
             muda_meios(&head, tipo, ID, bateria, autonomia);
             break;
-        // case 7:
-        //     system("clear");
-        //     printf("Função registo\n");
-        //     printf("insira o ID do meio:");
-        //     scanf("%d", &ID);
-        //     head = RegistroAluguerMeio(head, ID);
-        //     break;
+        case 7:
+            system("clear");
+            printf("Função registo\n");
+            printf("insira o ID do meio:");
+            scanf("%d", &ID);
+            RegistroAluguerMeio(head, ID);
+            break;
         case 8:
             system("clear");
             bubbleSort(&head);
